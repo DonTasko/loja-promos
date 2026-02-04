@@ -3,55 +3,261 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Top Descontos e Oportunidades</title>
+  <title>🔥 Top Descontos Amazon Portugal | Ofertas Atualizadas Diariamente</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Descubra as melhores promoções e descontos da Amazon Portugal. Ofertas atualizadas diariamente com até 70% de desconto!">
+  <meta name="keywords" content="descontos amazon, promoções amazon portugal, ofertas amazon, compras online">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="🔥 Top Descontos Amazon Portugal">
+  <meta property="og:description" content="As melhores ofertas da Amazon atualizadas diariamente!">
+  <meta property="og:image" content="https://your-domain.com/logox.png">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="🔥 Top Descontos Amazon Portugal">
+  <meta name="twitter:description" content="As melhores ofertas da Amazon atualizadas diariamente!">
+  
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
   <style>
-    .product-card { transition: transform .12s ease, box-shadow .12s ease; }
-    .product-card:hover { transform: translateY(-6px); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
-    .destaque { transform: scale(0.85); border: 2px solid #facc15; }
-    .header-logo { max-height: 60px; }
+    /* Animações e transições */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse-border {
+      0%, 100% { border-color: #facc15; }
+      50% { border-color: #f59e0b; }
+    }
+    
+    .product-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .destaque {
+      border: 3px solid #facc15;
+      animation: pulse-border 2s ease-in-out infinite;
+      position: relative;
+    }
+    
+    .destaque::before {
+      content: '⭐ DESTAQUE';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #facc15 0%, #f59e0b 100%);
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    
+    .header-logo {
+      max-height: 50px;
+      transition: transform 0.3s;
+    }
+    
+    .header-logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .badge-novo {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    
+    /* Loading skeleton */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    
+    /* Scroll to top button */
+    #scrollTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #facc15 0%, #f59e0b 100%);
+      color: #000;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 1000;
+    }
+    
+    #scrollTop.show {
+      opacity: 1;
+    }
+    
+    #scrollTop:hover {
+      transform: translateY(-4px);
+    }
+    
+    /* Share button */
+    .share-btn {
+      transition: all 0.2s;
+    }
+    
+    .share-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Category icons */
+    .category-icon {
+      display: inline-block;
+      margin-right: 6px;
+    }
+    
+    /* Responsive improvements */
+    @media (max-width: 640px) {
+      .header-controls {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .header-controls > * {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+    }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800">
 
-<header class="bg-white shadow-md">
-  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-    <div class="flex items-center space-x-3">
-      <img src="logox.png" alt="Logo" class="header-logo">
-      <h1 class="text-2xl font-semibold">Top Descontos e Oportunidades</h1>
+<!-- Header -->
+<header class="bg-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center space-x-3">
+        <img src="logox.png" alt="PromoZon Logo" class="header-logo">
+        <div>
+          <h1 class="text-2xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
+            Top Descontos
+          </h1>
+          <p class="text-xs text-gray-500">Atualizado diariamente</p>
+        </div>
+      </div>
+      
+      <!-- Stats Badge -->
+      <div class="hidden md:flex items-center space-x-4 text-sm">
+        <div class="flex items-center space-x-2">
+          <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span class="text-gray-600" id="liveCount">0 ofertas ativas</span>
+        </div>
+      </div>
     </div>
-    <div class="space-x-3">
-      <input id="search" placeholder="Pesquisar produtos..." class="px-3 py-2 border rounded-md" />
-      <select id="categoryFilter" class="px-3 py-2 border rounded-md">
-        <option value="">Todas as categorias</option>
+    
+    <!-- Filters -->
+    <div class="header-controls flex items-center space-x-3">
+      <input 
+        id="search" 
+        type="text"
+        placeholder="🔍 Pesquisar produtos..." 
+        class="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-yellow-400 focus:outline-none transition-colors" 
+      />
+      <select id="categoryFilter" class="px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-yellow-400 focus:outline-none bg-white">
+        <option value="">📁 Todas as categorias</option>
       </select>
-      <select id="sortSelect" class="px-3 py-2 border rounded-md">
-        <option value="relevance">Mais relevantes</option>
-        <option value="price_asc">Preço ↑</option>
-        <option value="price_desc">Preço ↓</option>
-        <option value="promo_desc">Desconto ↓</option>
+      <select id="sortSelect" class="px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-yellow-400 focus:outline-none bg-white">
+        <option value="relevance">⭐ Mais relevantes</option>
+        <option value="price_asc">💰 Preço crescente</option>
+        <option value="price_desc">💸 Preço decrescente</option>
+        <option value="promo_desc">🔥 Maior desconto</option>
+        <option value="newest">🆕 Mais recentes</option>
       </select>
     </div>
   </div>
 </header>
 
-<main class="max-w-6xl mx-auto px-4 py-8">
-  <section id="stats" class="mb-6 text-sm text-gray-600"></section>
-  <section id="grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></section>
-  <nav id="pagination" class="mt-8 flex justify-center"></nav>
+<!-- Main Content -->
+<main class="max-w-7xl mx-auto px-4 py-8">
+  <!-- Stats Bar -->
+  <section class="mb-6 flex items-center justify-between">
+    <div id="stats" class="text-sm text-gray-600 font-medium"></div>
+    <div class="text-xs text-gray-500">
+      💡 Dica: Use os filtros para encontrar exatamente o que procura!
+    </div>
+  </section>
+  
+  <!-- Loading Skeleton (shown initially) -->
+  <section id="loadingSkeleton" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- Skeleton cards will be inserted here -->
+  </section>
+  
+  <!-- Products Grid -->
+  <section id="grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 hidden"></section>
+  
+  <!-- Pagination -->
+  <nav id="pagination" class="mt-8 flex justify-center items-center space-x-2"></nav>
 </main>
 
-<footer class="text-center text-sm text-gray-500 py-6">Gerado com ❤️</footer>
+<!-- Footer -->
+<footer class="bg-white border-t border-gray-200 mt-16">
+  <div class="max-w-7xl mx-auto px-4 py-8 text-center">
+    <p class="text-sm text-gray-600">
+      Criado com ❤️ para poupar o teu dinheiro
+    </p>
+    <p class="text-xs text-gray-400 mt-2">
+      Os preços são atualizados regularmente. Confirme sempre o preço final no site da Amazon.
+    </p>
+  </div>
+</footer>
+
+<!-- Scroll to Top Button -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">
+  ↑
+</button>
 
 <script>
-// ---------------- CONFIG ----------------
+// ============ CONFIG ============
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzX7nYrpzC9QEXk-rMxzu6WTPG0Ox9tKj33v-mwWI6vC0gxcXki7k_uhs7dc4LvdCrs6Q/exec';
 const PAGE_SIZE = 24;
+const HOURS_FOR_NEW_BADGE = 48; // Produtos adicionados há menos de 48h mostram badge "NOVO"
 
 let PRODUCTS = [];
 let currentPage = 1;
 
-// ---------------- UTIL ----------------
+// Category icons mapping
+const CATEGORY_ICONS = {
+  'Electrónica': '💻',
+  'Cocina y Hogar': '🏠',
+  'Animais PET': '🐾',
+  'Ferramentas Electricas': '🔧',
+  'Desporto': '⚽',
+  'Beleza': '💄',
+  'default': '📦'
+};
+
+// ============ UTILITIES ============
 function fetchProducts() {
   return fetch(WEB_APP_URL).then(res => res.json());
 }
@@ -63,26 +269,161 @@ function toNumber(v) {
   return isNaN(n) ? null : n;
 }
 
+function parseDate(dateStr) {
+  if (!dateStr) return null;
+  // Tenta vários formatos de data
+  const formats = [
+    /(\d{1,2})\/(\d{1,2})\/(\d{4})/, // DD/MM/YYYY
+    /(\d{4})-(\d{2})-(\d{2})/,       // YYYY-MM-DD
+  ];
+  
+  for (const format of formats) {
+    const match = String(dateStr).match(format);
+    if (match) {
+      if (format === formats[0]) {
+        return new Date(match[3], match[2] - 1, match[1]);
+      } else {
+        return new Date(match[1], match[2] - 1, match[3]);
+      }
+    }
+  }
+  return null;
+}
+
+function isNew(dateAdded) {
+  if (!dateAdded) return false;
+  const now = new Date();
+  const diff = now - dateAdded;
+  const hours = diff / (1000 * 60 * 60);
+  return hours <= HOURS_FOR_NEW_BADGE;
+}
+
+function getShareText(product) {
+  const discount = product.promocao && product.preco 
+    ? Math.round((1 - product.promocao / product.preco) * 100)
+    : 0;
+  
+  let text = `🔥 ${product.titulo}\n\n`;
+  if (discount > 0) {
+    text += `💰 ${discount}% de desconto!\n`;
+    text += `De €${product.preco.toFixed(2)} por €${product.promocao.toFixed(2)}\n\n`;
+  } else {
+    text += `💵 €${product.preco.toFixed(2)}\n\n`;
+  }
+  text += `👉 Ver oferta: ${product.link}`;
+  
+  return encodeURIComponent(text);
+}
+
+function generateViewCount() {
+  // Gera número fake de visualizações para criar urgência
+  return Math.floor(Math.random() * 50) + 10;
+}
+
+// ============ RENDER FUNCTIONS ============
+function renderSkeletonCard() {
+  return `
+    <article class="bg-white rounded-2xl p-4 overflow-hidden">
+      <div class="skeleton h-48 rounded-lg mb-3"></div>
+      <div class="skeleton h-4 rounded mb-2" style="width: 80%"></div>
+      <div class="skeleton h-4 rounded mb-3" style="width: 60%"></div>
+      <div class="flex justify-between items-center">
+        <div class="skeleton h-6 rounded" style="width: 70px"></div>
+        <div class="skeleton h-9 rounded" style="width: 90px"></div>
+      </div>
+    </article>
+  `;
+}
+
+function showLoadingSkeleton() {
+  const skeleton = document.getElementById('loadingSkeleton');
+  const grid = document.getElementById('grid');
+  skeleton.innerHTML = Array(8).fill(renderSkeletonCard()).join('');
+  skeleton.classList.remove('hidden');
+  grid.classList.add('hidden');
+}
+
+function hideLoadingSkeleton() {
+  const skeleton = document.getElementById('loadingSkeleton');
+  const grid = document.getElementById('grid');
+  skeleton.classList.add('hidden');
+  grid.classList.remove('hidden');
+}
+
 function renderCard(p) {
   const price = p.preco != null ? `€${p.preco.toFixed(2)}` : '—';
   const promo = (p.promocao != null && p.promocao < p.preco) ? `€${p.promocao.toFixed(2)}` : null;
-  const discount = (p.promocao != null && p.promocao < p.preco) ? Math.round((1 - p.promocao / p.preco) * 100) : 0;
+  const discount = promo ? Math.round((1 - p.promocao / p.preco) * 100) : 0;
   const img = p.imagem || 'https://via.placeholder.com/400x300?text=Sem+imagem';
   const link = p.link || '#';
-  const destaqueClass = p.destaque.toLowerCase() === 'sim' ? 'destaque' : '';
+  const destaqueClass = p.destaque && p.destaque.toLowerCase() === 'sim' ? 'destaque' : '';
+  const isNewProduct = isNew(p.dataAdicionado);
+  const viewCount = generateViewCount();
+  const shareText = getShareText(p);
+  const whatsappLink = `https://wa.me/?text=${shareText}`;
+  
   return `
-    <article class="bg-white rounded-2xl p-4 product-card ${destaqueClass}">
-      <div class="relative overflow-hidden rounded-lg">
-        <img loading="lazy" src="${img}" alt="${p.titulo}" class="w-full h-48 object-cover" />
-        ${promo ? `<div class="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-bold">-${discount}%</div>` : ''}
-      </div>
-      <h3 class="mt-3 text-sm font-semibold leading-tight">${p.titulo}</h3>
-      <div class="mt-3 flex items-center justify-between">
-        <div>
-          ${promo ? `<div class="text-sm text-gray-500 line-through">${price}</div><div class="text-lg font-bold">${promo}</div>` : `<div class="text-lg font-bold">${price}</div>`}
+    <article class="bg-white rounded-2xl p-4 product-card ${destaqueClass} relative">
+      <!-- New Badge -->
+      ${isNewProduct ? `
+        <div class="absolute top-2 right-2 badge-novo text-white px-2 py-1 rounded-md text-xs font-bold z-10">
+          NOVO 🔥
         </div>
-        <div>
-          <a href="${link}" target="_blank" rel="noopener noreferrer" class="px-3 py-2 bg-yellow-500 rounded-md text-sm font-semibold">Ver oferta</a>
+      ` : ''}
+      
+      <!-- Image Container -->
+      <div class="relative overflow-hidden rounded-lg mb-3">
+        <img loading="lazy" src="${img}" alt="${p.titulo}" class="w-full h-48 object-cover" />
+        ${promo ? `
+          <div class="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
+            -${discount}%
+          </div>
+        ` : ''}
+      </div>
+      
+      <!-- Title -->
+      <h3 class="text-sm font-semibold leading-tight h-10 overflow-hidden mb-2" title="${p.titulo}">
+        ${p.titulo.length > 60 ? p.titulo.substring(0, 60) + '...' : p.titulo}
+      </h3>
+      
+      <!-- Category & Views -->
+      <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
+        <span class="flex items-center">
+          <span class="category-icon">${CATEGORY_ICONS[p.categoria] || CATEGORY_ICONS.default}</span>
+          ${p.categoria || 'Geral'}
+        </span>
+        <span>👁️ ${viewCount} views</span>
+      </div>
+      
+      <!-- Price & CTA -->
+      <div class="flex items-end justify-between">
+        <div class="flex-1">
+          ${promo ? `
+            <div class="text-xs text-gray-500 line-through">${price}</div>
+            <div class="text-xl font-bold text-green-600">${promo}</div>
+            <div class="text-xs text-green-600 font-semibold">Poupa €${(p.preco - p.promocao).toFixed(2)}</div>
+          ` : `
+            <div class="text-xl font-bold text-gray-800">${price}</div>
+          `}
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex flex-col space-y-2">
+          <a 
+            href="${link}" 
+            target="_blank" 
+            rel="noopener noreferrer sponsored" 
+            class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 rounded-lg text-sm font-bold text-gray-900 shadow-md transition-all text-center"
+          >
+            Ver Oferta →
+          </a>
+          <button 
+            onclick="shareProduct('${whatsappLink}')" 
+            class="share-btn px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs font-semibold transition-all"
+            title="Partilhar no WhatsApp"
+          >
+            📱 Partilhar
+          </button>
         </div>
       </div>
     </article>
@@ -91,31 +432,67 @@ function renderCard(p) {
 
 function renderGrid(list) {
   const grid = document.getElementById('grid');
-  grid.innerHTML = list.map(renderCard).join('\n');
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="col-span-full text-center py-16">
+        <div class="text-6xl mb-4">🔍</div>
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">Nenhum produto encontrado</h3>
+        <p class="text-gray-500">Tenta ajustar os filtros ou a pesquisa</p>
+      </div>
+    `;
+  } else {
+    grid.innerHTML = list.map(renderCard).join('\n');
+  }
 }
 
 function renderStats(total) {
   const s = document.getElementById('stats');
-  s.textContent = `Produtos encontrados: ${total}`;
+  const liveCount = document.getElementById('liveCount');
+  s.innerHTML = `<span class="font-bold text-yellow-600">${total}</span> produto${total !== 1 ? 's' : ''} encontrado${total !== 1 ? 's' : ''}`;
+  if (liveCount) {
+    liveCount.textContent = `${total} ofertas ativas`;
+  }
 }
 
 function renderPagination(totalItems) {
   const pages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
   const nav = document.getElementById('pagination');
+  
+  if (pages <= 1) {
+    nav.innerHTML = '';
+    return;
+  }
+  
   let html = '';
   const start = Math.max(1, currentPage - 2);
   const end = Math.min(pages, currentPage + 2);
-  if (currentPage > 1) html += `<button onclick="gotoPage(${currentPage-1})" class="px-3 py-1 mx-1 bg-white border rounded">«</button>`;
-  for (let i = start; i <= end; i++) {
-    html += `<button onclick="gotoPage(${i})" class="px-3 py-1 mx-1 ${i===currentPage? 'bg-yellow-400 text-white rounded':'bg-white border rounded'}">${i}</button>`;
+  
+  // Previous button
+  if (currentPage > 1) {
+    html += `<button onclick="gotoPage(${currentPage-1})" class="px-4 py-2 bg-white border-2 border-gray-200 rounded-lg hover:border-yellow-400 transition-colors font-semibold">← Anterior</button>`;
   }
-  if (currentPage < pages) html += `<button onclick="gotoPage(${currentPage+1})" class="px-3 py-1 mx-1 bg-white border rounded">»</button>`;
+  
+  // Page numbers
+  for (let i = start; i <= end; i++) {
+    const active = i === currentPage 
+      ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 border-yellow-500' 
+      : 'bg-white border-gray-200 hover:border-yellow-400';
+    html += `<button onclick="gotoPage(${i})" class="px-4 py-2 ${active} border-2 rounded-lg transition-colors font-semibold">${i}</button>`;
+  }
+  
+  // Next button
+  if (currentPage < pages) {
+    html += `<button onclick="gotoPage(${currentPage+1})" class="px-4 py-2 bg-white border-2 border-gray-200 rounded-lg hover:border-yellow-400 transition-colors font-semibold">Próximo →</button>`;
+  }
+  
   nav.innerHTML = html;
 }
 
+// ============ FILTER & SORT ============
 function gotoPage(n) {
   currentPage = n;
   applyFiltersAndRender();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function applyFiltersAndRender() {
@@ -129,50 +506,118 @@ function applyFiltersAndRender() {
     return inCat && inQ;
   });
 
-  if (sort === 'price_asc') filtered.sort((a,b)=> (a.promocao || a.preco || 0) - (b.promocao || b.preco || 0));
-  if (sort === 'price_desc') filtered.sort((a,b)=> (b.promocao || b.preco || 0) - (a.promocao || a.preco || 0));
-  if (sort === 'promo_desc') filtered.sort((a,b)=> ((a.preco-(a.promocao||a.preco))||0) - ((b.preco-(b.promocao||b.preco))||0)).reverse();
+  // Sorting
+  if (sort === 'price_asc') {
+    filtered.sort((a,b) => (a.promocao || a.preco || 0) - (b.promocao || b.preco || 0));
+  } else if (sort === 'price_desc') {
+    filtered.sort((a,b) => (b.promocao || b.preco || 0) - (a.promocao || a.preco || 0));
+  } else if (sort === 'promo_desc') {
+    filtered.sort((a,b) => {
+      const discA = a.preco && a.promocao ? (a.preco - a.promocao) : 0;
+      const discB = b.preco && b.promocao ? (b.preco - b.promocao) : 0;
+      return discB - discA;
+    });
+  } else if (sort === 'newest') {
+    filtered.sort((a,b) => (b.dataAdicionado || 0) - (a.dataAdicionado || 0));
+  }
 
   renderStats(filtered.length);
   renderPagination(filtered.length);
 
-  const start = (currentPage-1)*PAGE_SIZE;
-  const pageItems = filtered.slice(start, start+PAGE_SIZE);
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageItems = filtered.slice(start, start + PAGE_SIZE);
   renderGrid(pageItems);
 }
 
 function populateCategories() {
   const set = new Set();
-  PRODUCTS.forEach(p=>{ if(p.categoria) set.add(p.categoria.trim()); });
+  PRODUCTS.forEach(p => {
+    if (p.categoria) set.add(p.categoria.trim());
+  });
+  
   const sel = document.getElementById('categoryFilter');
-  set.forEach(c=>{ const opt=document.createElement('option'); opt.value=c; opt.textContent=c; sel.appendChild(opt); });
+  const sortedCats = Array.from(set).sort();
+  
+  sortedCats.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    const icon = CATEGORY_ICONS[c] || CATEGORY_ICONS.default;
+    opt.textContent = `${icon} ${c}`;
+    sel.appendChild(opt);
+  });
 }
 
-// ---------------- INIT ----------------
+// ============ SHARE FUNCTION ============
+function shareProduct(whatsappLink) {
+  window.open(whatsappLink, '_blank');
+}
+
+// ============ SCROLL TO TOP ============
+window.addEventListener('scroll', () => {
+  const scrollTop = document.getElementById('scrollTop');
+  if (window.pageYOffset > 300) {
+    scrollTop.classList.add('show');
+  } else {
+    scrollTop.classList.remove('show');
+  }
+});
+
+// ============ INIT ============
 async function init() {
+  showLoadingSkeleton();
+  
   try {
     const data = await fetchProducts();
-    PRODUCTS = data.map(p=>({
+    
+    PRODUCTS = data.map(p => ({
       titulo: p.titulo || '',
       imagem: p.imagem || '',
       preco: toNumber(p.preco),
       promocao: toNumber(p.promocao),
       link: p.link || '',
       categoria: p.categoria || '',
-      destaque: p.destaque || ''
+      destaque: p.destaque || '',
+      dataAdicionado: parseDate(p.enviado) || new Date()
     }));
+    
+    hideLoadingSkeleton();
     populateCategories();
     applyFiltersAndRender();
-  } catch(e){
+    
+  } catch(e) {
     console.error('Erro ao carregar produtos', e);
-    alert('Erro ao carregar produtos. Confirme se o Web App está publicado e acessível.');
+    hideLoadingSkeleton();
+    const grid = document.getElementById('grid');
+    grid.innerHTML = `
+      <div class="col-span-full text-center py-16">
+        <div class="text-6xl mb-4">⚠️</div>
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">Erro ao carregar ofertas</h3>
+        <p class="text-gray-500 mb-4">Por favor, tenta novamente mais tarde</p>
+        <button onclick="location.reload()" class="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 rounded-lg font-semibold transition-colors">
+          🔄 Recarregar página
+        </button>
+      </div>
+    `;
   }
 }
 
-document.getElementById('search').addEventListener('input',()=>{ currentPage=1; applyFiltersAndRender(); });
-document.getElementById('categoryFilter').addEventListener('change',()=>{ currentPage=1; applyFiltersAndRender(); });
-document.getElementById('sortSelect').addEventListener('change',()=>{ currentPage=1; applyFiltersAndRender(); });
+// Event Listeners
+document.getElementById('search').addEventListener('input', () => {
+  currentPage = 1;
+  applyFiltersAndRender();
+});
 
+document.getElementById('categoryFilter').addEventListener('change', () => {
+  currentPage = 1;
+  applyFiltersAndRender();
+});
+
+document.getElementById('sortSelect').addEventListener('change', () => {
+  currentPage = 1;
+  applyFiltersAndRender();
+});
+
+// Start app
 init();
 </script>
 

@@ -309,12 +309,14 @@ function getShareText(product) {
     : 0;
   
   let text = `🔥 ${product.titulo}\n\n`;
-  if (discount > 0) {
+  
+  if (discount > 0 && product.preco && product.promocao) {
     text += `💰 ${discount}% de desconto!\n`;
     text += `De €${product.preco.toFixed(2)} por €${product.promocao.toFixed(2)}\n\n`;
-  } else {
+  } else if (product.preco) {
     text += `💵 €${product.preco.toFixed(2)}\n\n`;
   }
+  
   text += `👉 Ver oferta: ${product.link}`;
   
   return encodeURIComponent(text);
@@ -357,8 +359,8 @@ function hideLoadingSkeleton() {
 
 function renderCard(p) {
   const price = p.preco != null ? `€${p.preco.toFixed(2)}` : '—';
-  const promo = (p.promocao != null && p.promocao < p.preco) ? `€${p.promocao.toFixed(2)}` : null;
-  const discount = promo ? Math.round((1 - p.promocao / p.preco) * 100) : 0;
+  const promo = (p.promocao != null && p.preco != null && p.promocao < p.preco) ? `€${p.promocao.toFixed(2)}` : null;
+  const discount = (promo && p.preco && p.promocao) ? Math.round((1 - p.promocao / p.preco) * 100) : 0;
   const img = p.imagem || 'https://via.placeholder.com/400x300?text=Sem+imagem';
   const link = p.link || '#';
   const destaqueClass = p.destaque && p.destaque.toLowerCase() === 'sim' ? 'destaque' : '';
@@ -403,7 +405,7 @@ function renderCard(p) {
       <!-- Price & CTA -->
       <div class="flex items-end justify-between">
         <div class="flex-1">
-          ${promo ? `
+          ${promo && p.preco && p.promocao ? `
             <div class="text-xs text-gray-500 line-through">${price}</div>
             <div class="text-xl font-bold text-green-600">${promo}</div>
             <div class="text-xs text-green-600 font-semibold">Poupa €${(p.preco - p.promocao).toFixed(2)}</div>

@@ -239,7 +239,7 @@
 
 <script>
 // ============ CONFIG ============
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzXV2COi6q6327Son0xN9pXKK3vWkmMc0FRp6m25MXzJsBbqg80GAR_qvNhP9pFW9JzWA/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzX7nYrpzC9QEXk-rMxzu6WTPG0Ox9tKj33v-mwWI6vC0gxcXki7k_uhs7dc4LvdCrs6Q/exec';
 const PAGE_SIZE = 24;
 const HOURS_FOR_NEW_BADGE = 48; // Produtos adicionados há menos de 48h mostram badge "NOVO"
 
@@ -264,7 +264,12 @@ function fetchProducts() {
 
 function toNumber(v) {
   if (!v) return null;
-  const s = String(v).replace(',', '.').replace(/[^0-9.\-]/g, '');
+  // Remove espaços, €, e outros caracteres
+  let s = String(v).trim();
+  // Substitui vírgula por ponto
+  s = s.replace(',', '.');
+  // Remove tudo exceto números, ponto e sinal negativo
+  s = s.replace(/[^0-9.\-]/g, '');
   const n = parseFloat(s);
   return isNaN(n) ? null : n;
 }
@@ -567,7 +572,14 @@ async function init() {
   showLoadingSkeleton();
   
   try {
+    console.log('🔄 Buscando produtos do Web App...');
     const data = await fetchProducts();
+    console.log('✅ Dados recebidos:', data);
+    console.log('📊 Total de itens:', data.length);
+    
+    if (data.length > 0) {
+      console.log('🔍 Exemplo do primeiro produto:', data[0]);
+    }
     
     PRODUCTS = data.map(p => ({
       titulo: p.titulo || '',
@@ -580,12 +592,17 @@ async function init() {
       dataAdicionado: parseDate(p.enviado) || new Date()
     }));
     
+    console.log('✅ Produtos processados:', PRODUCTS.length);
+    if (PRODUCTS.length > 0) {
+      console.log('🔍 Exemplo processado:', PRODUCTS[0]);
+    }
+    
     hideLoadingSkeleton();
     populateCategories();
     applyFiltersAndRender();
     
   } catch(e) {
-    console.error('Erro ao carregar produtos', e);
+    console.error('❌ Erro ao carregar produtos:', e);
     hideLoadingSkeleton();
     const grid = document.getElementById('grid');
     grid.innerHTML = `

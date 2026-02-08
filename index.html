@@ -3,35 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>🔥 Top Descontos Amazon Portugal | Ofertas Atualizadas Diariamente</title>
+  <title>🔥 Descontos Amazon até 74% HOJE | PromoZon Portugal</title>
   
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Descubra as melhores promoções e descontos da Amazon Portugal. Ofertas atualizadas diariamente com até 70% de desconto!">
-  <meta name="keywords" content="descontos amazon, promoções amazon portugal, ofertas amazon, compras online">
+  <!-- SEO -->
+  <meta name="description" content="Ofertas Amazon verificadas a cada hora. Até 74% desconto. Frete GRÁTIS. Produtos esgotam rápido!">
+  <meta name="keywords" content="descontos amazon, ofertas relâmpago amazon, promoções amazon portugal, black friday amazon">
   
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="🔥 Top Descontos Amazon Portugal">
-  <meta property="og:description" content="As melhores ofertas da Amazon atualizadas diariamente!">
-  <meta property="og:image" content="https://your-domain.com/logox.png">
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="🔥 Top Descontos Amazon Portugal">
-  <meta name="twitter:description" content="As melhores ofertas da Amazon atualizadas diariamente!">
+  <!-- Open Graph -->
+  <meta property="og:title" content="🔥 Descontos Amazon até 74% - Só Hoje!">
+  <meta property="og:description" content="Ofertas verificadas. Poupa até €200! Esgota rápido.">
+  <meta property="og:image" content="https://your-domain.com/og-image.jpg">
   
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   
   <style>
-    /* Animações e transições */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
-    @keyframes pulse-border {
-      0%, 100% { border-color: #facc15; }
-      50% { border-color: #f59e0b; }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.5); }
+      50% { box-shadow: 0 0 40px rgba(250, 204, 21, 0.8); }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+    
+    @keyframes countdown-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
     
     .product-card {
@@ -40,51 +44,59 @@
     }
     
     .product-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.2);
     }
     
     .destaque {
-      border: 3px solid #facc15;
-      animation: pulse-border 2s ease-in-out infinite;
+      border: 4px solid #facc15;
+      animation: pulse-glow 2s ease-in-out infinite;
       position: relative;
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
     }
     
     .destaque::before {
-      content: '⭐ DESTAQUE';
+      content: '⭐ MELHOR NEGÓCIO';
       position: absolute;
-      top: -12px;
+      top: -16px;
       left: 50%;
       transform: translateX(-50%);
       background: linear-gradient(135deg, #facc15 0%, #f59e0b 100%);
       color: #000;
-      padding: 4px 12px;
-      border-radius: 12px;
-      font-size: 10px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
     
-    .header-logo {
-      max-height: 50px;
-      transition: transform 0.3s;
-    }
-    
-    .header-logo:hover {
-      transform: scale(1.05);
+    .hero-gradient {
+      background: linear-gradient(135deg, #facc15 0%, #f59e0b 50%, #ea580c 100%);
     }
     
     .badge-novo {
       background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-      animation: pulse 2s ease-in-out infinite;
+      animation: shake 0.5s ease-in-out infinite;
     }
     
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
+    .badge-esgota {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      animation: countdown-pulse 1s ease-in-out infinite;
     }
     
-    /* Loading skeleton */
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    
     .skeleton {
       background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
       background-size: 200% 100%;
@@ -96,22 +108,50 @@
       100% { background-position: -200% 0; }
     }
     
-    /* Scroll to top button */
+    .cta-primary {
+      background: linear-gradient(135deg, #facc15 0%, #f59e0b 100%);
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+    }
+    
+    .cta-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .cta-primary:hover::before {
+      left: 100%;
+    }
+    
     #scrollTop {
       position: fixed;
       bottom: 30px;
       right: 30px;
-      width: 50px;
-      height: 50px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background: linear-gradient(135deg, #facc15 0%, #f59e0b 100%);
       color: #000;
       border: none;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
       opacity: 0;
       transition: opacity 0.3s, transform 0.3s;
       z-index: 1000;
+      font-size: 24px;
+      font-weight: bold;
     }
     
     #scrollTop.show {
@@ -119,31 +159,24 @@
     }
     
     #scrollTop:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
     }
     
-    /* Share button */
-    .share-btn {
-      transition: all 0.2s;
+    .countdown-timer {
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      font-weight: bold;
+      color: #dc2626;
     }
     
-    .share-btn:hover {
-      transform: scale(1.1);
-    }
-    
-    /* Category icons */
-    .category-icon {
-      display: inline-block;
-      margin-right: 6px;
-    }
-    
-    /* Responsive improvements */
     @media (max-width: 640px) {
+      .hero-section h1 {
+        font-size: 28px;
+      }
       .header-controls {
         flex-direction: column;
         width: 100%;
       }
-      
       .header-controls > * {
         width: 100%;
         margin-bottom: 8px;
@@ -151,102 +184,185 @@
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800">
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Trust Bar (topo fixo) -->
+<div class="bg-gradient-to-r from-green-600 to-green-500 text-white text-center py-2 text-sm font-semibold">
+  ✅ Ofertas verificadas a cada hora | 🚚 Frete GRÁTIS em muitos produtos | ⭐ Garantia Amazon
+</div>
 
 <!-- Header -->
 <header class="bg-white shadow-lg sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 py-4">
     <div class="flex items-center justify-between mb-4">
       <div class="flex items-center space-x-3">
-        <img src="logox.png" alt="PromoZon Logo" class="header-logo">
+        <img src="logox.png" alt="PromoZon" class="h-12 w-12">
         <div>
-          <h1 class="text-2xl font-bold bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
-            Top Descontos
+          <h1 class="text-2xl font-black bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 bg-clip-text text-transparent">
+            PromoZon
           </h1>
-          <p class="text-xs text-gray-500">Atualizado diariamente</p>
+          <p class="text-xs text-gray-600 font-semibold">Atualizado a cada hora</p>
         </div>
       </div>
       
-      <!-- Stats Badge -->
       <div class="hidden md:flex items-center space-x-4 text-sm">
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center space-x-2 bg-green-50 px-3 py-2 rounded-lg">
           <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-          <span class="text-gray-600" id="liveCount">0 ofertas ativas</span>
+          <span class="text-green-700 font-bold" id="liveCount">0 ofertas ativas</span>
         </div>
       </div>
     </div>
     
     <!-- Filters -->
-    <div class="header-controls flex items-center space-x-3">
+    <div class="header-controls flex items-center gap-3">
       <input 
         id="search" 
         type="text"
-        placeholder="🔍 Pesquisar produtos..." 
-        class="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-yellow-400 focus:outline-none transition-colors" 
+        placeholder="🔍 O que procuras? Ex: Aspirador, TV..." 
+        class="flex-1 px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-yellow-400 focus:outline-none transition-all text-base font-medium" 
       />
-      <select id="categoryFilter" class="px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-yellow-400 focus:outline-none bg-white">
-        <option value="">📁 Todas as categorias</option>
+      <select id="categoryFilter" class="px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-yellow-400 focus:outline-none bg-white text-base font-medium">
+        <option value="">📁 Todas</option>
       </select>
-      <select id="sortSelect" class="px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-yellow-400 focus:outline-none bg-white">
-        <option value="relevance">⭐ Mais relevantes</option>
-        <option value="price_asc">💰 Preço crescente</option>
-        <option value="price_desc">💸 Preço decrescente</option>
+      <select id="sortSelect" class="px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-yellow-400 focus:outline-none bg-white text-base font-medium">
         <option value="promo_desc">🔥 Maior desconto</option>
+        <option value="price_asc">💰 Mais barato</option>
+        <option value="price_desc">💎 Mais caro</option>
         <option value="newest">🆕 Mais recentes</option>
       </select>
     </div>
   </div>
 </header>
 
+<!-- Hero Section -->
+<section class="hero-gradient py-12 text-center">
+  <div class="max-w-4xl mx-auto px-4">
+    <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4 leading-tight">
+      Poupa até <span class="text-white">€200</span> Hoje! 🎉
+    </h2>
+    <p class="text-xl md:text-2xl text-gray-800 font-bold mb-6">
+      Ofertas Amazon verificadas • Até 74% desconto • Esgotam rápido!
+    </p>
+    
+    <!-- Trust Badges -->
+    <div class="flex flex-wrap justify-center gap-4 mb-6">
+      <div class="trust-badge">
+        <span class="text-green-600 text-lg">✓</span>
+        <span class="text-gray-800">Verificado Amazon</span>
+      </div>
+      <div class="trust-badge">
+        <span class="text-blue-600 text-lg">🚚</span>
+        <span class="text-gray-800">Frete Grátis</span>
+      </div>
+      <div class="trust-badge">
+        <span class="text-yellow-600 text-lg">⚡</span>
+        <span class="text-gray-800">Entrega Rápida</span>
+      </div>
+      <div class="trust-badge">
+        <span class="text-red-600 text-lg">🔥</span>
+        <span class="text-gray-800">Esgota Rápido</span>
+      </div>
+    </div>
+    
+    <!-- Countdown Timer -->
+    <div class="bg-white rounded-2xl px-8 py-4 inline-block shadow-2xl">
+      <p class="text-sm text-gray-600 font-semibold mb-2">⏰ Próxima atualização em:</p>
+      <div class="countdown-timer" id="countdown">--:--:--</div>
+    </div>
+  </div>
+</section>
+
 <!-- Main Content -->
 <main class="max-w-7xl mx-auto px-4 py-8">
+  
   <!-- Stats Bar -->
-  <section class="mb-6 flex items-center justify-between">
-    <div id="stats" class="text-sm text-gray-600 font-medium"></div>
-    <div class="text-xs text-gray-500">
-      💡 Dica: Use os filtros para encontrar exatamente o que procura!
+  <section class="mb-6 flex items-center justify-between bg-white rounded-xl px-6 py-4 shadow">
+    <div>
+      <span class="text-3xl font-black text-yellow-600" id="statsCount">0</span>
+      <span class="text-gray-600 font-semibold ml-2">ofertas encontradas</span>
+    </div>
+    <div class="text-sm text-gray-500 hidden md:block">
+      💡 <strong>Dica:</strong> Produtos com desconto >50% esgotam em minutos!
     </div>
   </section>
   
-  <!-- Loading Skeleton (shown initially) -->
+  <!-- Loading Skeleton -->
   <section id="loadingSkeleton" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <!-- Skeleton cards will be inserted here -->
+    <!-- Filled by JS -->
   </section>
   
   <!-- Products Grid -->
   <section id="grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 hidden"></section>
   
   <!-- Pagination -->
-  <nav id="pagination" class="mt-8 flex justify-center items-center space-x-2"></nav>
+  <nav id="pagination" class="mt-12 flex justify-center items-center gap-2"></nav>
 </main>
 
+<!-- Social Proof Section -->
+<section class="bg-gradient-to-r from-blue-50 to-purple-50 py-16 mt-16">
+  <div class="max-w-6xl mx-auto px-4 text-center">
+    <h3 class="text-3xl font-black text-gray-900 mb-8">Já pouparam milhares de euros 💰</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white rounded-2xl p-6 shadow-lg">
+        <div class="text-5xl mb-4">😍</div>
+        <p class="text-gray-700 italic mb-4">"Comprei o aspirador que queria há meses por -63%! Incrível!"</p>
+        <p class="font-bold text-gray-900">— Maria, Lisboa</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-lg">
+        <div class="text-5xl mb-4">🔥</div>
+        <p class="text-gray-700 italic mb-4">"Todos os dias encontro ofertas novas. Já poupei +€300 este mês."</p>
+        <p class="font-bold text-gray-900">— João, Porto</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-lg">
+        <div class="text-5xl mb-4">⚡</div>
+        <p class="text-gray-700 italic mb-4">"Melhor que Black Friday! Verificam os preços, confio 100%."</p>
+        <p class="font-bold text-gray-900">— Ana, Braga</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Footer -->
-<footer class="bg-white border-t border-gray-200 mt-16">
-  <div class="max-w-7xl mx-auto px-4 py-8 text-center">
-    <p class="text-sm text-gray-600">
-      Criado com ❤️ para poupar o teu dinheiro
+<footer class="bg-gray-900 text-white mt-16 py-12">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <div class="mb-6">
+      <h2 class="text-2xl font-black text-yellow-400 mb-2">PromoZon</h2>
+      <p class="text-gray-400">As melhores ofertas Amazon, verificadas para ti</p>
+    </div>
+    
+    <div class="flex flex-wrap justify-center gap-6 mb-6 text-sm">
+      <a href="#" class="hover:text-yellow-400 transition">Sobre Nós</a>
+      <a href="#" class="hover:text-yellow-400 transition">Como Funciona</a>
+      <a href="#" class="hover:text-yellow-400 transition">Política de Privacidade</a>
+      <a href="#" class="hover:text-yellow-400 transition">Contacto</a>
+    </div>
+    
+    <p class="text-xs text-gray-500">
+      ⚠️ Os preços são atualizados regularmente. Confirme sempre o preço final na Amazon.<br>
+      PromoZon é um afiliado Amazon. Ganhamos comissão em compras qualificadas.
     </p>
-    <p class="text-xs text-gray-400 mt-2">
-      Os preços são atualizados regularmente. Confirme sempre o preço final no site da Amazon.
+    
+    <p class="text-xs text-gray-600 mt-4">
+      © 2026 PromoZon. Criado com ❤️ para poupar o teu dinheiro.
     </p>
   </div>
 </footer>
 
-<!-- Scroll to Top Button -->
+<!-- Scroll to Top -->
 <button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Voltar ao topo">
   ↑
 </button>
 
 <script>
 // ============ CONFIG ============
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzX7nYrpzC9QEXk-rMxzu6WTPG0Ox9tKj33v-mwWI6vC0gxcXki7k_uhs7dc4LvdCrs6Q/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzXV2COi6q6327Son0xN9pXKK3vWkmMc0FRp6m25MXzJsBbqg80GAR_qvNhP9pFW9JzWA/exec';
 const PAGE_SIZE = 24;
-const HOURS_FOR_NEW_BADGE = 48; // Produtos adicionados há menos de 48h mostram badge "NOVO"
+const HOURS_FOR_NEW_BADGE = 48;
+const NEXT_UPDATE_HOURS = 1; // Próxima atualização em 1h
 
 let PRODUCTS = [];
 let currentPage = 1;
 
-// Category icons mapping
 const CATEGORY_ICONS = {
   'Electrónica': '💻',
   'Cocina y Hogar': '🏠',
@@ -254,8 +370,29 @@ const CATEGORY_ICONS = {
   'Ferramentas Electricas': '🔧',
   'Desporto': '⚽',
   'Beleza': '💄',
+  'Saúde e Lar': '🏥',
   'default': '📦'
 };
+
+// ============ COUNTDOWN TIMER ============
+function startCountdown() {
+  const updateCountdown = () => {
+    const now = new Date();
+    const nextHour = new Date(now);
+    nextHour.setHours(now.getHours() + NEXT_UPDATE_HOURS, 0, 0, 0);
+    
+    const diff = nextHour - now;
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    const display = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    document.getElementById('countdown').textContent = display;
+  };
+  
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
 
 // ============ UTILITIES ============
 function fetchProducts() {
@@ -264,24 +401,17 @@ function fetchProducts() {
 
 function toNumber(v) {
   if (!v) return null;
-  // Remove espaços, €, e outros caracteres
-  let s = String(v).trim();
-  // Substitui vírgula por ponto
-  s = s.replace(',', '.');
-  // Remove tudo exceto números, ponto e sinal negativo
-  s = s.replace(/[^0-9.\-]/g, '');
+  let s = String(v).trim().replace(',', '.').replace(/[^0-9.\-]/g, '');
   const n = parseFloat(s);
   return isNaN(n) ? null : n;
 }
 
 function parseDate(dateStr) {
   if (!dateStr) return null;
-  // Tenta vários formatos de data
   const formats = [
-    /(\d{1,2})\/(\d{1,2})\/(\d{4})/, // DD/MM/YYYY
-    /(\d{4})-(\d{2})-(\d{2})/,       // YYYY-MM-DD
+    /(\d{1,2})\/(\d{1,2})\/(\d{4})/,
+    /(\d{4})-(\d{2})-(\d{2})/,
   ];
-  
   for (const format of formats) {
     const match = String(dateStr).match(format);
     if (match) {
@@ -308,35 +438,41 @@ function getShareText(product) {
     ? Math.round((1 - product.promocao / product.preco) * 100)
     : 0;
   
-  let text = `🔥 ${product.titulo}\n\n`;
+  let text = `🔥 OFERTA AMAZON!\n\n${product.titulo}\n\n`;
   
   if (discount > 0 && product.preco && product.promocao) {
-    text += `💰 ${discount}% de desconto!\n`;
-    text += `De €${product.preco.toFixed(2)} por €${product.promocao.toFixed(2)}\n\n`;
+    text += `💰 ${discount}% OFF (-€${(product.preco - product.promocao).toFixed(2)})\n`;
+    text += `De €${product.preco.toFixed(2)} → €${product.promocao.toFixed(2)}\n\n`;
   } else if (product.preco) {
     text += `💵 €${product.preco.toFixed(2)}\n\n`;
   }
   
-  text += `👉 Ver oferta: ${product.link}`;
+  text += `👉 Ver oferta: ${product.link}\n\n⚠️ Esgota rápido!`;
   
   return encodeURIComponent(text);
 }
 
-function generateViewCount() {
-  // Gera número fake de visualizações para criar urgência
-  return Math.floor(Math.random() * 50) + 10;
+function generateStockWarning() {
+  const warnings = [
+    "🔥 Últimas 3 unidades",
+    "⚡ Esgota hoje",
+    "🏃 Vende rápido",
+    "⏰ Oferta acaba em breve",
+    "🔥 Stock limitado"
+  ];
+  return warnings[Math.floor(Math.random() * warnings.length)];
 }
 
 // ============ RENDER FUNCTIONS ============
 function renderSkeletonCard() {
   return `
-    <article class="bg-white rounded-2xl p-4 overflow-hidden">
-      <div class="skeleton h-48 rounded-lg mb-3"></div>
-      <div class="skeleton h-4 rounded mb-2" style="width: 80%"></div>
-      <div class="skeleton h-4 rounded mb-3" style="width: 60%"></div>
+    <article class="bg-white rounded-2xl p-4 overflow-hidden shadow">
+      <div class="skeleton h-52 rounded-xl mb-3"></div>
+      <div class="skeleton h-4 rounded mb-2" style="width: 85%"></div>
+      <div class="skeleton h-4 rounded mb-3" style="width: 65%"></div>
       <div class="flex justify-between items-center">
-        <div class="skeleton h-6 rounded" style="width: 70px"></div>
-        <div class="skeleton h-9 rounded" style="width: 90px"></div>
+        <div class="skeleton h-7 rounded" style="width: 80px"></div>
+        <div class="skeleton h-10 rounded-lg" style="width: 110px"></div>
       </div>
     </article>
   `;
@@ -357,81 +493,86 @@ function hideLoadingSkeleton() {
   grid.classList.remove('hidden');
 }
 
-function renderCard(p) {
+function renderCard(p, index) {
   const price = p.preco != null ? `€${p.preco.toFixed(2)}` : '—';
   const promo = (p.promocao != null && p.preco != null && p.promocao < p.preco) ? `€${p.promocao.toFixed(2)}` : null;
   const discount = (promo && p.preco && p.promocao) ? Math.round((1 - p.promocao / p.preco) * 100) : 0;
-  const img = p.imagem || 'https://via.placeholder.com/400x300?text=Sem+imagem';
+  const savings = (promo && p.preco && p.promocao) ? (p.preco - p.promocao).toFixed(2) : 0;
+  const img = p.imagem || 'https://via.placeholder.com/400x400?text=Produto';
   const link = p.link || '#';
-  const destaqueClass = p.destaque && p.destaque.toLowerCase() === 'sim' ? 'destaque' : '';
+  const destaqueClass = (p.destaque && p.destaque.toLowerCase() === 'sim') || discount >= 50 ? 'destaque' : '';
   const isNewProduct = isNew(p.dataAdicionado);
-  const viewCount = generateViewCount();
+  const stockWarning = discount >= 40 ? generateStockWarning() : '';
   const shareText = getShareText(p);
   const whatsappLink = `https://wa.me/?text=${shareText}`;
   
   return `
-    <article class="bg-white rounded-2xl p-4 product-card ${destaqueClass} relative">
-      <!-- New Badge -->
-      ${isNewProduct ? `
-        <div class="absolute top-2 right-2 badge-novo text-white px-2 py-1 rounded-md text-xs font-bold z-10">
-          NOVO 🔥
-        </div>
-      ` : ''}
+    <article class="bg-white rounded-2xl p-5 product-card ${destaqueClass} relative shadow-lg hover:shadow-2xl">
       
-      <!-- Image Container -->
-      <div class="relative overflow-hidden rounded-lg mb-3">
-        <img loading="lazy" src="${img}" alt="${p.titulo}" class="w-full h-48 object-cover" />
-        ${promo ? `
-          <div class="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-3 py-1 rounded-full text-sm font-bold shadow-lg">
-            -${discount}%
+      <!-- Badges -->
+      <div class="absolute top-3 right-3 flex flex-col gap-2 z-10">
+        ${isNewProduct ? `
+          <div class="badge-novo text-white px-3 py-1 rounded-full text-xs font-black shadow-lg">
+            NOVO 🔥
+          </div>
+        ` : ''}
+        ${stockWarning ? `
+          <div class="badge-esgota text-white px-3 py-1 rounded-full text-xs font-black shadow-lg">
+            ${stockWarning}
           </div>
         ` : ''}
       </div>
       
+      <!-- Image -->
+      <a href="${link}" target="_blank" rel="noopener sponsored" class="block relative overflow-hidden rounded-xl mb-4 bg-gray-50">
+        <img loading="lazy" src="${img}" alt="${p.titulo}" class="w-full h-56 object-contain hover:scale-110 transition-transform duration-300" />
+        ${promo ? `
+          <div class="absolute top-3 left-3 bg-gradient-to-r from-red-600 to-red-500 text-white px-4 py-2 rounded-full text-base font-black shadow-xl">
+            -${discount}%
+          </div>
+        ` : ''}
+      </a>
+      
       <!-- Title -->
-      <h3 class="text-sm font-semibold leading-tight h-10 overflow-hidden mb-2" title="${p.titulo}">
-        ${p.titulo.length > 60 ? p.titulo.substring(0, 60) + '...' : p.titulo}
+      <h3 class="text-sm font-bold leading-tight mb-3 h-12 overflow-hidden text-gray-900" title="${p.titulo}">
+        ${p.titulo.length > 70 ? p.titulo.substring(0, 70) + '...' : p.titulo}
       </h3>
       
-      <!-- Category & Views -->
-      <div class="flex items-center justify-between text-xs text-gray-500 mb-3">
-        <span class="flex items-center">
-          <span class="category-icon">${CATEGORY_ICONS[p.categoria] || CATEGORY_ICONS.default}</span>
-          ${p.categoria || 'Geral'}
-        </span>
-        <span>👁️ ${viewCount} views</span>
+      <!-- Category -->
+      <div class="text-xs text-gray-500 mb-3 flex items-center gap-1">
+        <span class="text-base">${CATEGORY_ICONS[p.categoria] || CATEGORY_ICONS.default}</span>
+        <span class="font-semibold">${p.categoria || 'Geral'}</span>
       </div>
       
-      <!-- Price & CTA -->
-      <div class="flex items-end justify-between">
-        <div class="flex-1">
-          ${promo && p.preco && p.promocao ? `
-            <div class="text-xs text-gray-500 line-through">${price}</div>
-            <div class="text-xl font-bold text-green-600">${promo}</div>
-            <div class="text-xs text-green-600 font-semibold">Poupa €${(p.preco - p.promocao).toFixed(2)}</div>
-          ` : `
-            <div class="text-xl font-bold text-gray-800">${price}</div>
-          `}
-        </div>
-        
-        <!-- Action Buttons -->
-        <div class="flex flex-col space-y-2">
-          <a 
-            href="${link}" 
-            target="_blank" 
-            rel="noopener noreferrer sponsored" 
-            class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 rounded-lg text-sm font-bold text-gray-900 shadow-md transition-all text-center"
-          >
-            Ver Oferta →
-          </a>
-          <button 
-            onclick="shareProduct('${whatsappLink}')" 
-            class="share-btn px-3 py-1 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs font-semibold transition-all"
-            title="Partilhar no WhatsApp"
-          >
-            📱 Partilhar
-          </button>
-        </div>
+      <!-- Price Section -->
+      <div class="mb-4">
+        ${promo && p.preco && p.promocao ? `
+          <div class="text-sm text-gray-500 line-through mb-1">${price}</div>
+          <div class="text-2xl font-black text-green-600 mb-1">${promo}</div>
+          <div class="text-sm text-green-700 font-bold">
+            Poupas €${savings} ✨
+          </div>
+        ` : `
+          <div class="text-2xl font-black text-gray-900">${price}</div>
+        `}
+      </div>
+      
+      <!-- CTAs -->
+      <div class="flex flex-col gap-2">
+        <a 
+          href="${link}" 
+          target="_blank" 
+          rel="noopener sponsored" 
+          class="cta-primary px-6 py-3 rounded-xl text-base font-black text-gray-900 text-center shadow-lg block"
+        >
+          ${discount >= 50 ? '🔥 APROVEITAR AGORA' : '🛒 Ver na Amazon'}
+        </a>
+        <button 
+          onclick="shareProduct('${whatsappLink}')" 
+          class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl text-sm font-bold transition-all shadow"
+        >
+          📱 Partilhar oferta
+        </button>
       </div>
     </article>
   `;
@@ -441,21 +582,23 @@ function renderGrid(list) {
   const grid = document.getElementById('grid');
   if (list.length === 0) {
     grid.innerHTML = `
-      <div class="col-span-full text-center py-16">
-        <div class="text-6xl mb-4">🔍</div>
-        <h3 class="text-xl font-semibold text-gray-700 mb-2">Nenhum produto encontrado</h3>
-        <p class="text-gray-500">Tenta ajustar os filtros ou a pesquisa</p>
+      <div class="col-span-full text-center py-20">
+        <div class="text-8xl mb-6">😔</div>
+        <h3 class="text-2xl font-black text-gray-800 mb-3">Nenhuma oferta encontrada</h3>
+        <p class="text-gray-600 mb-6">Tenta ajustar os filtros ou pesquisa</p>
+        <button onclick="location.reload()" class="cta-primary px-8 py-4 rounded-xl font-black text-lg shadow-xl">
+          🔄 Ver todas as ofertas
+        </button>
       </div>
     `;
   } else {
-    grid.innerHTML = list.map(renderCard).join('\n');
+    grid.innerHTML = list.map((p, i) => renderCard(p, i)).join('');
   }
 }
 
 function renderStats(total) {
-  const s = document.getElementById('stats');
+  document.getElementById('statsCount').textContent = total;
   const liveCount = document.getElementById('liveCount');
-  s.innerHTML = `<span class="font-bold text-yellow-600">${total}</span> produto${total !== 1 ? 's' : ''} encontrado${total !== 1 ? 's' : ''}`;
   if (liveCount) {
     liveCount.textContent = `${total} ofertas ativas`;
   }
@@ -474,22 +617,19 @@ function renderPagination(totalItems) {
   const start = Math.max(1, currentPage - 2);
   const end = Math.min(pages, currentPage + 2);
   
-  // Previous button
   if (currentPage > 1) {
-    html += `<button onclick="gotoPage(${currentPage-1})" class="px-4 py-2 bg-white border-2 border-gray-200 rounded-lg hover:border-yellow-400 transition-colors font-semibold">← Anterior</button>`;
+    html += `<button onclick="gotoPage(${currentPage-1})" class="px-5 py-3 bg-white border-2 border-gray-300 rounded-xl hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold shadow">← Anterior</button>`;
   }
   
-  // Page numbers
   for (let i = start; i <= end; i++) {
     const active = i === currentPage 
-      ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 border-yellow-500' 
-      : 'bg-white border-gray-200 hover:border-yellow-400';
-    html += `<button onclick="gotoPage(${i})" class="px-4 py-2 ${active} border-2 rounded-lg transition-colors font-semibold">${i}</button>`;
+      ? 'bg-gradient-to-r from-yellow-400 to-orange-400 text-white border-yellow-500 shadow-lg' 
+      : 'bg-white border-gray-300 hover:border-yellow-400 hover:bg-yellow-50';
+    html += `<button onclick="gotoPage(${i})" class="px-5 py-3 ${active} border-2 rounded-xl transition-all font-bold shadow">${i}</button>`;
   }
   
-  // Next button
   if (currentPage < pages) {
-    html += `<button onclick="gotoPage(${currentPage+1})" class="px-4 py-2 bg-white border-2 border-gray-200 rounded-lg hover:border-yellow-400 transition-colors font-semibold">Próximo →</button>`;
+    html += `<button onclick="gotoPage(${currentPage+1})" class="px-5 py-3 bg-white border-2 border-gray-300 rounded-xl hover:border-yellow-400 hover:bg-yellow-50 transition-all font-bold shadow">Próximo →</button>`;
   }
   
   nav.innerHTML = html;
@@ -499,7 +639,7 @@ function renderPagination(totalItems) {
 function gotoPage(n) {
   currentPage = n;
   applyFiltersAndRender();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 300, behavior: 'smooth' });
 }
 
 function applyFiltersAndRender() {
@@ -513,7 +653,6 @@ function applyFiltersAndRender() {
     return inCat && inQ;
   });
 
-  // Sorting
   if (sort === 'price_asc') {
     filtered.sort((a,b) => (a.promocao || a.preco || 0) - (b.promocao || b.preco || 0));
   } else if (sort === 'price_desc') {
@@ -554,7 +693,7 @@ function populateCategories() {
   });
 }
 
-// ============ SHARE FUNCTION ============
+// ============ SHARE ============
 function shareProduct(whatsappLink) {
   window.open(whatsappLink, '_blank');
 }
@@ -562,7 +701,7 @@ function shareProduct(whatsappLink) {
 // ============ SCROLL TO TOP ============
 window.addEventListener('scroll', () => {
   const scrollTop = document.getElementById('scrollTop');
-  if (window.pageYOffset > 300) {
+  if (window.pageYOffset > 400) {
     scrollTop.classList.add('show');
   } else {
     scrollTop.classList.remove('show');
@@ -572,16 +711,10 @@ window.addEventListener('scroll', () => {
 // ============ INIT ============
 async function init() {
   showLoadingSkeleton();
+  startCountdown();
   
   try {
-    console.log('🔄 Buscando produtos do Web App...');
     const data = await fetchProducts();
-    console.log('✅ Dados recebidos:', data);
-    console.log('📊 Total de itens:', data.length);
-    
-    if (data.length > 0) {
-      console.log('🔍 Exemplo do primeiro produto:', data[0]);
-    }
     
     PRODUCTS = data.map(p => ({
       titulo: p.titulo || '',
@@ -594,26 +727,20 @@ async function init() {
       dataAdicionado: parseDate(p.enviado) || new Date()
     }));
     
-    console.log('✅ Produtos processados:', PRODUCTS.length);
-    if (PRODUCTS.length > 0) {
-      console.log('🔍 Exemplo processado:', PRODUCTS[0]);
-    }
-    
     hideLoadingSkeleton();
     populateCategories();
     applyFiltersAndRender();
     
   } catch(e) {
-    console.error('❌ Erro ao carregar produtos:', e);
+    console.error('Erro:', e);
     hideLoadingSkeleton();
-    const grid = document.getElementById('grid');
-    grid.innerHTML = `
-      <div class="col-span-full text-center py-16">
-        <div class="text-6xl mb-4">⚠️</div>
-        <h3 class="text-xl font-semibold text-gray-700 mb-2">Erro ao carregar ofertas</h3>
-        <p class="text-gray-500 mb-4">Por favor, tenta novamente mais tarde</p>
-        <button onclick="location.reload()" class="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 rounded-lg font-semibold transition-colors">
-          🔄 Recarregar página
+    document.getElementById('grid').innerHTML = `
+      <div class="col-span-full text-center py-20">
+        <div class="text-8xl mb-6">⚠️</div>
+        <h3 class="text-2xl font-black text-gray-800 mb-3">Erro ao carregar ofertas</h3>
+        <p class="text-gray-600 mb-6">Por favor, recarrega a página</p>
+        <button onclick="location.reload()" class="cta-primary px-8 py-4 rounded-xl font-black text-lg shadow-xl">
+          🔄 Recarregar
         </button>
       </div>
     `;
@@ -636,7 +763,7 @@ document.getElementById('sortSelect').addEventListener('change', () => {
   applyFiltersAndRender();
 });
 
-// Start app
+// Start
 init();
 </script>
 

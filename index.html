@@ -257,42 +257,183 @@
   </div>
 </header>
 
-<!-- Hero Section -->
-<section class="hero-gradient py-4 md:py-12 text-center">
-  <div class="max-w-4xl mx-auto px-3 md:px-4">
-    <h2 class="text-2xl md:text-5xl font-black text-gray-900 mb-2 md:mb-4 leading-tight">
-      Poupa até <span class="text-white">€200</span> Hoje! 🎉
-    </h2>
-    <p class="text-sm md:text-2xl text-gray-800 font-bold mb-3 md:mb-6">
-      Ofertas Amazon • Até 74% desconto • Esgotam rápido!
-    </p>
-    
-    <!-- Trust Badges - Hidden on mobile, shown on desktop -->
-    <div class="hidden md:flex flex-wrap justify-center gap-4 mb-6">
-      <div class="trust-badge">
-        <span class="text-green-600 text-lg">✓</span>
-        <span class="text-gray-800">Verificado</span>
+<!-- Hero Section - GameRunlocked Style -->
+<section class="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black py-16 md:py-24">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23facc15\" fill-opacity=\"0.4\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+  </div>
+  
+  <!-- Gradient Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/50 to-gray-900"></div>
+  
+  <div class="relative max-w-7xl mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      
+      <!-- Left Column - Text Content -->
+      <div class="text-left space-y-6 z-10">
+        <!-- Label Badge -->
+        <div class="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 rounded-full px-4 py-2 backdrop-blur-sm">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-400"></span>
+          </span>
+          <span class="text-yellow-400 text-sm font-bold uppercase tracking-wider">Ofertas Verificadas Diariamente</span>
+        </div>
+        
+        <!-- Main Heading -->
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-none">
+          Poupa até
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 mt-2">
+            70% OFF
+          </span>
+          <span class="block text-white text-3xl md:text-4xl mt-4">
+            em produtos Amazon
+          </span>
+        </h1>
+        
+        <!-- Subtitle -->
+        <p class="text-gray-300 text-lg md:text-xl max-w-lg leading-relaxed">
+          As melhores ofertas da Amazon Portugal, atualizadas a cada hora. 
+          <span class="text-yellow-400 font-semibold">Esgotam rápido!</span>
+        </p>
+        
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <a href="#grid" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-gray-900 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl overflow-hidden transition-all hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/50">
+            <span class="relative z-10 flex items-center gap-2">
+              🔥 Ver Todas as Ofertas
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+          
+          <button onclick="document.getElementById('categoryFilter').focus()" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-xl hover:bg-white/20 hover:border-white/40 transition-all">
+            <span class="flex items-center gap-2">
+              📁 Explorar Categorias
+            </span>
+          </button>
+        </div>
+        
+        <!-- Stats Bar -->
+        <div class="flex flex-wrap gap-6 pt-6 border-t border-white/10">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-green-500/10 border border-green-500/30 rounded-xl flex items-center justify-center">
+              <span class="text-2xl">✓</span>
+            </div>
+            <div>
+              <div class="text-white font-bold text-lg" id="heroStatsCount">0+</div>
+              <div class="text-gray-400 text-sm">Ofertas Ativas</div>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-blue-500/10 border border-blue-500/30 rounded-xl flex items-center justify-center">
+              <span class="text-2xl">🚚</span>
+            </div>
+            <div>
+              <div class="text-white font-bold text-lg">Grátis</div>
+              <div class="text-gray-400 text-sm">Frete em Muitos</div>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-yellow-500/10 border border-yellow-500/30 rounded-xl flex items-center justify-center">
+              <span class="text-2xl">⚡</span>
+            </div>
+            <div>
+              <div class="text-white font-bold text-lg countdown-timer-hero" id="countdownHero">--:--</div>
+              <div class="text-gray-400 text-sm">Próx. Atualização</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="trust-badge">
-        <span class="text-blue-600 text-lg">🚚</span>
-        <span class="text-gray-800">Frete Grátis</span>
+      
+      <!-- Right Column - Visual Element -->
+      <div class="hidden md:block relative">
+        <!-- Floating Cards Animation -->
+        <div class="relative h-96">
+          <!-- Card 1 - Top -->
+          <div class="absolute top-0 right-0 w-64 bg-gradient-to-br from-gray-800 to-gray-900 border border-yellow-400/30 rounded-2xl p-4 shadow-2xl shadow-yellow-500/20 animate-float" style="animation-delay: 0s;">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center text-white font-black text-lg">
+                -63%
+              </div>
+              <div class="flex-1">
+                <div class="text-white font-bold text-sm">Aspirador Robot</div>
+                <div class="text-gray-400 text-xs">Xiaomi</div>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-gray-500 line-through text-sm">€299</span>
+              <span class="text-yellow-400 font-black text-xl">€110</span>
+            </div>
+          </div>
+          
+          <!-- Card 2 - Middle -->
+          <div class="absolute top-24 left-0 w-56 bg-gradient-to-br from-gray-800 to-gray-900 border border-orange-400/30 rounded-2xl p-4 shadow-2xl shadow-orange-500/20 animate-float" style="animation-delay: 0.5s;">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center text-white font-black text-lg">
+                -48%
+              </div>
+              <div class="flex-1">
+                <div class="text-white font-bold text-sm">Smart TV 32"</div>
+                <div class="text-gray-400 text-xs">Samsung</div>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-gray-500 line-through text-sm">€249</span>
+              <span class="text-orange-400 font-black text-xl">€129</span>
+            </div>
+          </div>
+          
+          <!-- Card 3 - Bottom -->
+          <div class="absolute bottom-0 right-8 w-60 bg-gradient-to-br from-gray-800 to-gray-900 border border-green-400/30 rounded-2xl p-4 shadow-2xl shadow-green-500/20 animate-float" style="animation-delay: 1s;">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center text-white font-black text-lg">
+                -55%
+              </div>
+              <div class="flex-1">
+                <div class="text-white font-bold text-sm">Auscultadores BT</div>
+                <div class="text-gray-400 text-xs">Sony</div>
+              </div>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-gray-500 line-through text-sm">€180</span>
+              <span class="text-green-400 font-black text-xl">€81</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="trust-badge">
-        <span class="text-yellow-600 text-lg">⚡</span>
-        <span class="text-gray-800">Entrega Rápida</span>
-      </div>
-      <div class="trust-badge">
-        <span class="text-red-600 text-lg">🔥</span>
-        <span class="text-gray-800">Esgota Rápido</span>
-      </div>
-    </div>
-    
-    <!-- Countdown Timer - Smaller on mobile -->
-    <div class="bg-white rounded-xl md:rounded-2xl px-4 md:px-8 py-2 md:py-4 inline-block shadow-lg md:shadow-2xl">
-      <p class="text-xs md:text-sm text-gray-600 font-semibold mb-1">⏰ Atualiza em: <span class="countdown-timer inline md:block" id="countdown">--:--:--</span></p>
+      
     </div>
   </div>
+  
+  <!-- Bottom Wave -->
+  <div class="absolute bottom-0 left-0 right-0">
+    <svg class="w-full h-16 md:h-24 text-gray-50" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="currentColor"/>
+    </svg>
+  </div>
 </section>
+
+<style>
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(1deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.countdown-timer-hero {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: bold;
+}
+</style>
 
 <!-- Main Content -->
 <main class="max-w-7xl mx-auto px-4 py-8">
@@ -409,7 +550,13 @@ function startCountdown() {
     const secs = Math.floor((diff % (1000 * 60)) / 1000);
     
     const display = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-    document.getElementById('countdown').textContent = display;
+    const displayShort = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    
+    const countdownEl = document.getElementById('countdown');
+    const countdownHeroEl = document.getElementById('countdownHero');
+    
+    if (countdownEl) countdownEl.textContent = display;
+    if (countdownHeroEl) countdownHeroEl.textContent = displayShort;
   };
   
   updateCountdown();
@@ -621,8 +768,13 @@ function renderGrid(list) {
 function renderStats(total) {
   document.getElementById('statsCount').textContent = total;
   const liveCount = document.getElementById('liveCount');
+  const heroStatsCount = document.getElementById('heroStatsCount');
+  
   if (liveCount) {
     liveCount.textContent = `${total} ofertas ativas`;
+  }
+  if (heroStatsCount) {
+    heroStatsCount.textContent = `${total}+`;
   }
 }
 

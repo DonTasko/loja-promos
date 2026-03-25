@@ -84,31 +84,31 @@
 
 <h1>Ofertas Amazon</h1>
 <div class="products" id="products-container">
-  <!-- Produtos carregados aqui -->
+  <p>Carregando produtos...</p>
 </div>
 
 <script>
 async function loadProducts() {
-  const container = document.getElementById("products-container");
-  container.innerHTML = "";
-
   try {
     const res = await fetch("/.netlify/functions/amazon");
     const items = await res.json();
 
-    if (items.error) {
-      container.innerHTML = `<p>${items.error}</p>`;
+    const container = document.getElementById("products-container");
+    container.innerHTML = "";
+
+    if (!items || items.length === 0) {
+      container.innerHTML = "<p>Nenhum produto encontrado.</p>";
       return;
     }
 
     items.forEach(item => {
       const productHTML = `
       <div class="product" id="${item.asin}">
-        <img src="${item.image || 'https://via.placeholder.com/220'}" alt="${item.title}">
+        <img src="${item.image}" alt="${item.title}">
         <div class="title">${item.title}</div>
         <div>
-          <span class="price-original">${item.original_price || ""}</span>
-          <span class="price-promo">${item.price || ""}</span>
+          <span class="price-original">${item.original_price ? item.original_price + " €" : ""}</span>
+          <span class="price-promo">${item.promo_price ? item.promo_price + " €" : ""}</span>
           ${item.discount ? `<span class="discount">-${item.discount}%</span>` : ""}
         </div>
         <a class="btn-buy" href="${item.link}" target="_blank">Comprar Agora</a>
@@ -118,7 +118,7 @@ async function loadProducts() {
 
   } catch (error) {
     console.error("Erro ao carregar produtos:", error);
-    container.innerHTML = "<p>Erro ao carregar produtos. Tenta novamente mais tarde.</p>";
+    document.getElementById("products-container").innerHTML = "<p>Erro ao carregar produtos. Tenta novamente mais tarde.</p>";
   }
 }
 

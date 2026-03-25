@@ -1,39 +1,39 @@
-const fetch = require("node-fetch");
+const amazonPaapi = require('amazon-paapi');
 
-const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"]; // substitui pelos teus ASINs
-const ACCESS_KEY = process.env.AMAZON_ACCESS_KEY;
-const SECRET_KEY = process.env.AMAZON_SECRET_KEY;
-const ASSOC_TAG = process.env.AMAZON_ASSOC_TAG;
-
-exports.handler = async function(event, context) {
+exports.handler = async () => {
   try {
-    // URL da API Amazon Product Advertising (simplificado)
-    const products = await Promise.all(ASINS.map(async (asin) => {
-      // Para cada ASIN, chamamos a API da Amazon
-      // Aqui usamos um exemplo de URL; substitui pelo endpoint real da Amazon
-      const url = `https://api.amazon.com/products?asin=${asin}&access_key=${ACCESS_KEY}&secret_key=${SECRET_KEY}&assoc_tag=${ASSOC_TAG}`;
-      
-      const res = await fetch(url);
-      const data = await res.json();
+    const client = new amazonPaapi.DefaultApiClient({
+      accessKey: process.env.AMAZON_ACCESS_KEY,
+      secretKey: process.env.AMAZON_SECRET_KEY,
+      partnerTag: process.env.AMAZON_ASSOC_TAG,
+      marketplace: 'www.amazon.pt', // mercado PT
+    });
 
-      // Mapeia para o formato do HTML
-      return {
-        asin: asin,
-        title: data.title || "Produto sem título",
-        image: data.image || "https://via.placeholder.com/220",
-        original_price: data.original_price || "",
-        promo_price: data.promo_price || "",
-        discount: data.discount || "",
-        link: data.link || `https://www.amazon.com/dp/${asin}?tag=${ASSOC_TAG}`
-      };
+    const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"]; // coloca os teus ASINs aqui
+
+    const response = await client.getItems({ ItemIds: ASINS });
+
+    // Mapeia os produtos para o frontend
+    const items = response.ItemsResult.Items.map(item => ({
+      asin: item.ASIN,
+      title: item.ItemInfo.Title.DisplayValue,
+      image: item.Images.Primary.Medium.URL,
+      link: item.DetailPageURL,
+      original_price: item.Offers?.Listings?.[0]?.Price?.Amount,
+      promo_price: item.Offers?.Listings?.[0]?.Price?.Amount,
+      discount: null // a API não devolve desconto diretamente
     }));
 
     return {
       statusCode: 200,
-      body: JSON.stringify(products)
+      body: JSON.stringify(items),
     };
-  } catch (err) {
-    console.error(err);
-    return { statusCode: 500, body: JSON.stringify({ error: "Erro ao carregar produtos" }) };
+
+  } catch (error) {
+    console.error("Erro Amazon PA API:", error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Erro ao carregar produtos" }),
+    };
   }
 };

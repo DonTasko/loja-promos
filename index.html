@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Produtos Amazon - Promoções</title>
+<title>Ofertas Amazon</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #f7f7f7;
+    background: #f4f4f4;
     margin: 0;
     padding: 20px;
   }
@@ -24,14 +24,15 @@
   .product {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
     width: 220px;
     padding: 15px;
     text-align: center;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
   .product:hover {
     transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
   }
   .product img {
     width: 100%;
@@ -63,21 +64,31 @@
     font-size: 12px;
     margin-left: 5px;
   }
-  a {
+  .btn-buy {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #ff9900;
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
     text-decoration: none;
-    color: inherit;
+    transition: background 0.2s;
+  }
+  .btn-buy:hover {
+    background: #e68a00;
   }
 </style>
 </head>
 <body>
 
-<h1>Produtos em Promoção</h1>
+<h1>Ofertas Amazon</h1>
 <div class="products" id="products-container">
-  <!-- Produtos vão aparecer aqui via JS -->
+  <!-- Produtos carregados aqui -->
 </div>
 
 <script>
-const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"]; // mesmo que na API
+const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"]; // substitui pelos teus
 
 async function loadProducts() {
   try {
@@ -89,22 +100,21 @@ async function loadProducts() {
 
     items.forEach(item => {
       const productHTML = `
-      <a href="${item.link}" target="_blank">
-        <div class="product" id="${item.asin}">
-          <img src="${item.image}" alt="${item.title}">
-          <div class="title">${item.title}</div>
-          <div>
-            <span class="price-original">${item.original_price ? item.original_price + " €" : ""}</span>
-            <span class="price-promo">${item.promo_price ? item.promo_price + " €" : ""}</span>
-            ${item.discount ? `<span class="discount">-${item.discount}%</span>` : ""}
-          </div>
+      <div class="product" id="${item.asin}">
+        <img src="${item.image}" alt="${item.title}">
+        <div class="title">${item.title}</div>
+        <div>
+          <span class="price-original">${item.original_price ? item.original_price + " €" : ""}</span>
+          <span class="price-promo">${item.promo_price ? item.promo_price + " €" : ""}</span>
+          ${item.discount ? `<span class="discount">-${item.discount}%</span>` : ""}
         </div>
-      </a>`;
+        <a class="btn-buy" href="${item.link}" target="_blank">Comprar Agora</a>
+      </div>`;
       container.insertAdjacentHTML("beforeend", productHTML);
     });
 
   } catch (error) {
-    console.error("Erro a carregar produtos:", error);
+    console.error("Erro ao carregar produtos:", error);
     document.getElementById("products-container").innerHTML = "<p>Erro ao carregar produtos. Tenta novamente mais tarde.</p>";
   }
 }

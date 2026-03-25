@@ -1,38 +1,39 @@
-// netlify/functions/amazon.js
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
-export async function handler(event, context) {
-  const ASINS = ["ASIN1", "ASIN2"]; // substitui pelos teus ASINs
+const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"]; // substitui pelos teus ASINs
+const ACCESS_KEY = process.env.AMAZON_ACCESS_KEY;
+const SECRET_KEY = process.env.AMAZON_SECRET_KEY;
+const ASSOC_TAG = process.env.AMAZON_ASSOC_TAG;
 
-  const ACCESS_KEY = process.env.AMAZON_ACCESS_KEY;
-  const SECRET_KEY = process.env.AMAZON_SECRET_KEY;
-  const ASSOCIATE_TAG = process.env.AMAZON_ASSOCIATE_TAG;
-
-  if (!ACCESS_KEY || !SECRET_KEY || !ASSOCIATE_TAG) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Chaves Amazon não configuradas!" }),
-    };
-  }
-
+exports.handler = async function(event, context) {
   try {
-    // Exemplo simples: a Amazon Product Advertising API requer assinatura, aqui é só para testar
-    // Vamos simular dados:
-    const produtos = ASINS.map((asin, i) => ({
-      asin,
-      title: `Produto de teste ${i + 1}`,
-      link: `https://www.amazon.com/dp/${asin}?tag=${ASSOCIATE_TAG}`,
-      price: `$${(10 + i * 5).toFixed(2)}`,
+    // URL da API Amazon Product Advertising (simplificado)
+    const products = await Promise.all(ASINS.map(async (asin) => {
+      // Para cada ASIN, chamamos a API da Amazon
+      // Aqui usamos um exemplo de URL; substitui pelo endpoint real da Amazon
+      const url = `https://api.amazon.com/products?asin=${asin}&access_key=${ACCESS_KEY}&secret_key=${SECRET_KEY}&assoc_tag=${ASSOC_TAG}`;
+      
+      const res = await fetch(url);
+      const data = await res.json();
+
+      // Mapeia para o formato do HTML
+      return {
+        asin: asin,
+        title: data.title || "Produto sem título",
+        image: data.image || "https://via.placeholder.com/220",
+        original_price: data.original_price || "",
+        promo_price: data.promo_price || "",
+        discount: data.discount || "",
+        link: data.link || `https://www.amazon.com/dp/${asin}?tag=${ASSOC_TAG}`
+      };
     }));
 
     return {
       statusCode: 200,
-      body: JSON.stringify(produtos),
+      body: JSON.stringify(products)
     };
   } catch (err) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err.message }),
-    };
+    console.error(err);
+    return { statusCode: 500, body: JSON.stringify({ error: "Erro ao carregar produtos" }) };
   }
-}
+};

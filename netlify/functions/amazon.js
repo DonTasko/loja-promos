@@ -1,39 +1,46 @@
-const amazonPaapi = require('amazon-paapi');
+import AmazonPaapi from "amazon-paapi";
 
-exports.handler = async () => {
+const client = new AmazonPaapi({
+  accessKey: process.env.AMAZON_ACCESS_KEY,
+  secretKey: process.env.AMAZON_SECRET_KEY,
+  partnerTag: process.env.AMAZON_ASSOC_TAG,
+  partnerType: "Associates",
+  marketplace: "www.amazon.pt"
+});
+
+export async function handler(event, context) {
   try {
-    const client = new amazonPaapi.DefaultApiClient({
-      accessKey: process.env.AMAZON_ACCESS_KEY,
-      secretKey: process.env.AMAZON_SECRET_KEY,
-      partnerTag: process.env.AMAZON_ASSOC_TAG,
-      marketplace: 'www.amazon.pt', // mercado PT
+    const response = await client.getItems({
+      ItemIds: ["B0GHNL2SRS", "B0CVB937JQ"], // os teus ASINs
+      Resources: [
+        "Images.Primary.Small",
+        "ItemInfo.Title",
+        "Offers.Listings.Price"
+      ]
     });
 
-    const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"]; // coloca os teus ASINs aqui
-
-    const response = await client.getItems({ ItemIds: ASINS });
-
-    // Mapeia os produtos para o frontend
-    const items = response.ItemsResult.Items.map(item => ({
+    const products = response.ItemsResult.Items.map(item => ({
       asin: item.ASIN,
       title: item.ItemInfo.Title.DisplayValue,
-      image: item.Images.Primary.Medium.URL,
-      link: item.DetailPageURL,
-      original_price: item.Offers?.Listings?.[0]?.Price?.Amount,
-      promo_price: item.Offers?.Listings?.[0]?.Price?.Amount,
-      discount: null // a API não devolve desconto diretamente
+      image: item.Images.Primary.Small.URL,
+      original_price: item.Offers?.Listings?.[0]?.Price?.Amount ? (item.Offers.Listings[0].Price.Amount).toFixed(2) : null,
+      promo_price: item.Offers?.Listings?.[0]?.Price?.Amount ? (item.Offers.Listings[0].Price.Amount).toFixed(2) : null,
+      link: `https://www.amazon.pt/dp/${item.ASIN}`,
+      discount: null
     }));
 
     return {
       statusCode: 200,
-      body: JSON.stringify(items),
+      body: JSON.stringify(products),
+      headers: { "Content-Type": "application/json" }
     };
 
   } catch (error) {
-    console.error("Erro Amazon PA API:", error);
+    console.error("Erro Amazon API:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Erro ao carregar produtos" }),
+      headers: { "Content-Type": "application/json" }
     };
   }
-};
+}

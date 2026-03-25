@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "amazon-paapi": "^2.0.5"
+    "paapi5-nodejs-sdk": "^1.0.4"
   }
 }

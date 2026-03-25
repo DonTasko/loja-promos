@@ -1,8 +1,9 @@
 {
-  "name": "amazon-offers",
+  "name": "amazon-offers-app",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "dependencies": {
-    "node-fetch": "^2.6.12"
+    "amazon-paapi": "^2.0.5"  // versão oficial mais recente
   }
 }

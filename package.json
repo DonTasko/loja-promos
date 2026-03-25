@@ -4,6 +4,6 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-    "amazon-paapi": "^2.0.5"  // versão oficial mais recente
+    "amazon-paapi": "^2.0.5"  
   }
 }

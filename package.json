@@ -1,9 +1,8 @@
 {
   "name": "amazon-offers-app",
   "version": "1.0.0",
-  "main": "index.js",
   "type": "module",
   "dependencies": {
-    "amazon-paapi": "^2.0.5"  
+    "amazon-paapi": "^2.0.5"
   }
 }

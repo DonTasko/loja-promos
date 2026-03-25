@@ -11,7 +11,7 @@ const client = new AmazonPaapi({
 export async function handler(event, context) {
   try {
     const response = await client.getItems({
-      ItemIds: ["B0GHNL2SRS", "B0CVB937JQ"], // os teus ASINs
+      ItemIds: ["B0GHNL2SRS", "B0CVB937JQ"], // substitui pelos teus ASINs
       Resources: [
         "Images.Primary.Small",
         "ItemInfo.Title",

@@ -1,8 +1,14 @@
 {
-  "name": "amazon-offers-app",
+  "name": "topofertas24",
   "version": "1.0.0",
+  "description": "Funções para mostrar produtos Amazon",
+  "main": "index.js",
   "type": "module",
+  "scripts": {
+    "start": "netlify dev"
+  },
   "dependencies": {
-    "paapi5-nodejs-sdk": "^1.0.4"
+    "node-fetch": "^3.3.2",
+    "amazon-paapi": "^1.1.0"
   }
 }

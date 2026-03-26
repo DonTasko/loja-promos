@@ -10,7 +10,6 @@ export default async function handler(req, res) {
   const PARTNER_TAG = process.env.AMAZON_ASSOC_TAG || "teste-21";
   const REGION = "eu-west-1";
   const HOST = "webservices.amazon.es";
-
   const endpoint = `https://${HOST}/paapi5/getitems`;
 
   const payload = {
@@ -28,7 +27,7 @@ export default async function handler(req, res) {
   const payloadString = JSON.stringify(payload);
 
   try {
-    // --- Amazon Signature V4 ---
+    // --- assinatura V4 ---
     const now = new Date();
     const amzDate = now.toISOString().split('.')[0] + "Z";
     const dateStamp = amzDate.substring(0, 10).replace(/-/g, "");
@@ -51,7 +50,7 @@ export default async function handler(req, res) {
     const stringToSign = `${algorithm}\n${amzDate}\n${credentialScope}\n${crypto.createHash("sha256").update(canonicalRequest).digest("hex")}`;
 
     const sign = (key, msg) => crypto.createHmac("sha256", key).update(msg).digest();
-    const kDate = sign(("AWS4" + SECRET_KEY), dateStamp);
+    const kDate = sign("AWS4" + SECRET_KEY, dateStamp);
     const kRegion = sign(kDate, REGION);
     const kService = sign(kRegion, "ProductAdvertisingAPI");
     const kSigning = sign(kService, "aws4_request");
@@ -59,7 +58,7 @@ export default async function handler(req, res) {
 
     const authorizationHeader = `${algorithm} Credential=${ACCESS_KEY}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
 
-    // --- Fetch Amazon ---
+    // --- fetch Amazon ---
     const amazonResponse = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -72,20 +71,20 @@ export default async function handler(req, res) {
       body: payloadString
     });
 
-    // log detalhado
     const rawText = await amazonResponse.text();
     console.log("📌 Resposta bruta da Amazon:", rawText);
 
     let data;
     try {
       data = JSON.parse(rawText);
-    } catch (err) {
-      console.error("❌ Não foi possível parsear JSON:", err);
-      data = null;
+    } catch {
+      data = {};
     }
 
-    // garante que items seja sempre array
-    const itemsArray = (data?.ItemsResult?.Items && Array.isArray(data.ItemsResult.Items)) ? data.ItemsResult.Items : [];
+    // sempre array, mesmo que vazio
+    const itemsArray = (data?.ItemsResult?.Items && Array.isArray(data.ItemsResult.Items)) 
+      ? data.ItemsResult.Items 
+      : [];
 
     const result = itemsArray.map(item => {
       const title = item.ItemInfo?.Title?.DisplayValue || "Sem título";
@@ -93,7 +92,9 @@ export default async function handler(req, res) {
       const offer = item.Offers?.Listings?.[0] || null;
       const promoPrice = offer?.Price?.Amount || null;
       const originalPrice = offer?.SavingBasis?.Price?.Amount || promoPrice;
-      const discountPct = (originalPrice && promoPrice) ? Math.round(((originalPrice - promoPrice) / originalPrice) * 100) : 0;
+      const discountPct = (originalPrice && promoPrice) 
+        ? Math.round(((originalPrice - promoPrice) / originalPrice) * 100) 
+        : 0;
 
       return {
         asin: item.ASIN,
@@ -106,11 +107,10 @@ export default async function handler(req, res) {
       };
     });
 
-    // envia resultado seguro para front-end
-    res.status(200).json(result);
+    res.status(200).json(result); // sempre array
 
   } catch (error) {
-    console.error("❌ Erro ao chamar Amazon PA API:", error);
+    console.error("❌ Erro na função Amazon:", error);
     res.status(200).json([]); // nunca quebra o front-end
   }
 }

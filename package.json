@@ -8,7 +8,17 @@
     "start": "netlify dev"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2",
-    "amazon-paapi": "^1.1.0"
-  }
+    "node-fetch": "^3.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonTasko/loja-promos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonTasko/loja-promos/issues"
+  },
+  "homepage": "https://github.com/DonTasko/loja-promos#readme"
 }

@@ -29,24 +29,29 @@
 <script>
 async function loadProducts() {
   try {
-    const res = await fetch("/.netlify/functions/amazon"); // Função Netlify
+    const res = await fetch("/.netlify/functions/amazon");
     const items = await res.json();
 
     const container = document.getElementById("products-container");
     container.innerHTML = "";
 
+    if (!Array.isArray(items) || items.length === 0) {
+      container.innerHTML = "<p>Sem produtos disponíveis.</p>";
+      return;
+    }
+
     items.forEach(item => {
       const productHTML = `
-        <div class="product" id="${item.asin}">
-          <img src="${item.image}" alt="${item.title}">
-          <div class="title">${item.title}</div>
-          <div>
-            <span class="price-original">${item.original_price ? item.original_price + " €" : ""}</span>
-            <span class="price-promo">${item.promo_price ? item.promo_price + " €" : ""}</span>
-            ${item.discount ? `<span class="discount">-${item.discount}%</span>` : ""}
-          </div>
-          <a class="btn-buy" href="${item.link}" target="_blank">Comprar Agora</a>
-        </div>`;
+      <div class="product" id="${item.asin}">
+        <img src="${item.image}" alt="${item.title}">
+        <div class="title">${item.title}</div>
+        <div>
+          <span class="price-original">${item.original_price ? item.original_price + " €" : ""}</span>
+          <span class="price-promo">${item.promo_price ? item.promo_price + " €" : ""}</span>
+          ${item.discount ? `<span class="discount">-${item.discount}%</span>` : ""}
+        </div>
+        <a class="btn-buy" href="${item.link}" target="_blank">Comprar Agora</a>
+      </div>`;
       container.insertAdjacentHTML("beforeend", productHTML);
     });
 
@@ -55,8 +60,6 @@ async function loadProducts() {
     document.getElementById("products-container").innerHTML = "<p>Erro ao carregar produtos. Tenta novamente mais tarde.</p>";
   }
 }
-
-loadProducts();
 </script>
 
 </body>

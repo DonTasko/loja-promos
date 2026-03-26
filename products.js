@@ -33,13 +33,13 @@ export default async function handler(req, res) {
   const canonicalUri = "/paapi5/getitems";
   const canonicalQueryString = "";
   const canonicalHeaders = 
-    `content-encoding:amz-1.0\n` +
-    `content-type:application/json; charset=utf-8\n` +
-    `host:${HOST}\n` +
-    `x-amz-date:${amzDate}\n`;
-  
-  const signedHeaders = 
-    "content-encoding;content-type;host;x-amz-date";
+  `content-type:application/json; charset=utf-8\n` +
+  `host:${HOST}\n` +
+  `x-amz-date:${amzDate}\n` +
+  `x-amz-target:com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems\n`;
+
+const signedHeaders = 
+  "content-type;host;x-amz-date;x-amz-target";
 
   const hashPayload = crypto.createHash("sha256").update(payloadString).digest("hex");
 

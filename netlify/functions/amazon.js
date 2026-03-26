@@ -1,62 +1,107 @@
 // netlify/functions/amazon.js
+import fetch from "node-fetch";
+import crypto from "crypto";
 
-const Paapi = require('paapi5-nodejs-sdk');
+export default async function handler(req, res) {
+  const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"];
+  const ACCESS_KEY = process.env.AMAZON_ACCESS_KEY;
+  const SECRET_KEY = process.env.AMAZON_SECRET_KEY;
+  const PARTNER_TAG = process.env.AMAZON_ASSOC_TAG || "teste-21";
+  const REGION = "eu-west-1";
+  const HOST = "webservices.amazon.es";
+  const endpoint = `https://${HOST}/paapi5/getitems`;
 
-const accessKey = process.env.AMAZON_ACCESS_KEY;
-const secretKey = process.env.AMAZON_SECRET_KEY;
-const partnerTag = process.env.AMAZON_ASSOC_TAG;
+  const payload = {
+    ItemIds: ASINS,
+    Resources: [
+      "Images.Primary.Large",
+      "ItemInfo.Title",
+      "Offers.Listings.Price",
+      "Offers.Listings.SavingBasis.Price"
+    ],
+    PartnerTag: PARTNER_TAG,
+    PartnerType: "Associates"
+  };
 
-const client = new Paapi.DefaultApi(
-  new Paapi.Configuration({
-    accessKey,
-    secretKey,
-    region: "eu-west-1",
-    host: "webservices.amazon.com"
-  })
-);
+  const payloadString = JSON.stringify(payload);
 
-// ASINs reais
-const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"];
-
-exports.handler = async () => {
   try {
-    const request = {
-      ItemIds: ASINS,
-      PartnerTag: partnerTag,
-      PartnerType: "Associates",
-      Marketplace: "www.amazon.pt",
-      Resources: [
-        "Images.Primary.Large",
-        "ItemInfo.Title",
-        "Offers.Listings.Price"
-      ]
-    };
+    const now = new Date();
+    const amzDate = now.toISOString().split('.')[0] + "Z";
+    const dateStamp = amzDate.substring(0, 10).replace(/-/g, "");
 
-    const response = await client.getItems(request);
+    const canonicalUri = "/paapi5/getitems";
+    const canonicalQueryString = "";
+    const canonicalHeaders = 
+      `content-encoding:amz-1.0\n` +
+      `content-type:application/json; charset=utf-8\n` +
+      `host:${HOST}\n` +
+      `x-amz-date:${amzDate}\n`;
 
-    const items = response.ItemsResult.Items.map(item => {
-      const price = item.Offers?.Listings?.[0]?.Price;
+    const signedHeaders = "content-encoding;content-type;host;x-amz-date";
+    const hashPayload = crypto.createHash("sha256").update(payloadString).digest("hex");
+    const canonicalRequest = `POST\n${canonicalUri}\n${canonicalQueryString}\n${canonicalHeaders}\n${signedHeaders}\n${hashPayload}`;
+
+    const algorithm = "AWS4-HMAC-SHA256";
+    const credentialScope = `${dateStamp}/${REGION}/ProductAdvertisingAPI/aws4_request`;
+    const stringToSign = `${algorithm}\n${amzDate}\n${credentialScope}\n${crypto.createHash("sha256").update(canonicalRequest).digest("hex")}`;
+
+    const sign = (key, msg) => crypto.createHmac("sha256", key).update(msg).digest();
+    const kDate = sign("AWS4" + SECRET_KEY, dateStamp);
+    const kRegion = sign(kDate, REGION);
+    const kService = sign(kRegion, "ProductAdvertisingAPI");
+    const kSigning = sign(kService, "aws4_request");
+    const signature = crypto.createHmac("sha256", kSigning).update(stringToSign).digest("hex");
+
+    const authorizationHeader = `${algorithm} Credential=${ACCESS_KEY}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
+
+    const amazonResponse = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "amz-1.0",
+        "X-Amz-Date": amzDate,
+        "Authorization": authorizationHeader,
+        "Host": HOST
+      },
+      body: payloadString
+    });
+
+    const rawText = await amazonResponse.text();
+    console.log("Resposta bruta Amazon:", rawText);
+
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch {
+      data = {};
+    }
+
+    const itemsArray = Array.isArray(data?.ItemsResult?.Items) ? data.ItemsResult.Items : [];
+
+    const result = itemsArray.map(item => {
+      const title = item.ItemInfo?.Title?.DisplayValue || "Sem título";
+      const image = item.Images?.Primary?.Large?.URL || "";
+      const offer = item.Offers?.Listings?.[0] || null;
+      const promoPrice = offer?.Price?.Amount || null;
+      const originalPrice = offer?.SavingBasis?.Price?.Amount || promoPrice;
+      const discountPct = (originalPrice && promoPrice) ? Math.round(((originalPrice - promoPrice)/originalPrice)*100) : 0;
 
       return {
         asin: item.ASIN,
-        title: item.ItemInfo?.Title?.DisplayValue || "Sem título",
-        image: item.Images?.Primary?.Large?.URL || "",
-        original_price: price?.Savings ? price.Savings.Amount : null,
-        promo_price: price?.Amount ? price.Amount : null,
-        discount: price?.Savings?.Percentage || null,
-        link: `https://www.amazon.pt/dp/${item.ASIN}?tag=${partnerTag}`
+        title,
+        image,
+        original_price: originalPrice,
+        promo_price: promoPrice,
+        discount: discountPct,
+        link: `https://www.amazon.es/dp/${item.ASIN}/?tag=${PARTNER_TAG}`
       };
     });
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(items)
-    };
-  } catch (err) {
-    console.error("Erro PAAPI:", err);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Erro ao carregar produtos" })
-    };
+    res.status(200).json(result);
+
+  } catch (error) {
+    console.error("Erro na função Amazon:", error);
+    res.status(200).json([]); // nunca quebra front-end
   }
-};
+}

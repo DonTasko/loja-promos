@@ -1,115 +1,116 @@
+// netlify/functions/amazon.js
+import fetch from "node-fetch";
 import crypto from "crypto";
 
 export default async function handler(req, res) {
-  const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"];
+  const ASINS = ["B0GHNL2SRS", "B0CVB937JQ"]; // substitui pelos teus ASINs
 
   const ACCESS_KEY = process.env.AMAZON_ACCESS_KEY;
   const SECRET_KEY = process.env.AMAZON_SECRET_KEY;
-  const PARTNER_TAG = "viseu7302-21";
-
+  const PARTNER_TAG = process.env.AMAZON_ASSOC_TAG || "teste-21";
   const REGION = "eu-west-1";
-  const SERVICE = "ProductAdvertisingAPI";
   const HOST = "webservices.amazon.es";
-  const ENDPOINT = `https://${HOST}/paapi5/getitems`;
+
+  const endpoint = `https://${HOST}/paapi5/getitems`;
 
   const payload = {
     ItemIds: ASINS,
-    PartnerTag: PARTNER_TAG,
-    PartnerType: "Associates",
     Resources: [
       "Images.Primary.Large",
       "ItemInfo.Title",
       "Offers.Listings.Price",
       "Offers.Listings.SavingBasis.Price"
-    ]
+    ],
+    PartnerTag: PARTNER_TAG,
+    PartnerType: "Associates"
   };
 
   const payloadString = JSON.stringify(payload);
 
-  // ------- AWS SIGNATURE V4 ----------
-  const now = new Date();
-  const amzDate = now.toISOString().replace(/[:\-]|\.\d{3}/g, "");
-  const dateStamp = amzDate.slice(0, 8);
+  try {
+    // --- Amazon Signature V4 ---
+    const now = new Date();
+    const amzDate = now.toISOString().split('.')[0] + "Z";
+    const dateStamp = amzDate.substring(0, 10).replace(/-/g, "");
 
-  const canonicalUri = "/paapi5/getitems";
-  const canonicalQueryString = "";
+    const canonicalUri = "/paapi5/getitems";
+    const canonicalQueryString = "";
+    const canonicalHeaders = 
+      `content-encoding:amz-1.0\n` +
+      `content-type:application/json; charset=utf-8\n` +
+      `host:${HOST}\n` +
+      `x-amz-date:${amzDate}\n`;
 
-  const canonicalHeaders =
-    `content-type:application/json; charset=utf-8\n` +
-    `host:${HOST}\n` +
-    `x-amz-date:${amzDate}\n` +
-    `x-amz-target:com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems\n`;
+    const signedHeaders = "content-encoding;content-type;host;x-amz-date";
 
-  const signedHeaders = "content-type;host;x-amz-date;x-amz-target";
+    const hashPayload = crypto.createHash("sha256").update(payloadString).digest("hex");
+    const canonicalRequest = `POST\n${canonicalUri}\n${canonicalQueryString}\n${canonicalHeaders}\n${signedHeaders}\n${hashPayload}`;
 
-  const payloadHash = crypto.createHash("sha256").update(payloadString).digest("hex");
+    const algorithm = "AWS4-HMAC-SHA256";
+    const credentialScope = `${dateStamp}/${REGION}/ProductAdvertisingAPI/aws4_request`;
+    const stringToSign = `${algorithm}\n${amzDate}\n${credentialScope}\n${crypto.createHash("sha256").update(canonicalRequest).digest("hex")}`;
 
-  const canonicalRequest =
-    `POST\n${canonicalUri}\n${canonicalQueryString}\n${canonicalHeaders}\n${signedHeaders}\n${payloadHash}`;
+    const sign = (key, msg) => crypto.createHmac("sha256", key).update(msg).digest();
+    const kDate = sign(("AWS4" + SECRET_KEY), dateStamp);
+    const kRegion = sign(kDate, REGION);
+    const kService = sign(kRegion, "ProductAdvertisingAPI");
+    const kSigning = sign(kService, "aws4_request");
+    const signature = crypto.createHmac("sha256", kSigning).update(stringToSign).digest("hex");
 
-  const algorithm = "AWS4-HMAC-SHA256";
-  const credentialScope = `${dateStamp}/${REGION}/${SERVICE}/aws4_request`;
+    const authorizationHeader = `${algorithm} Credential=${ACCESS_KEY}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
 
-  const stringToSign =
-    `${algorithm}\n${amzDate}\n${credentialScope}\n${crypto.createHash("sha256").update(canonicalRequest).digest("hex")}`;
+    // --- Fetch Amazon ---
+    const amazonResponse = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "amz-1.0",
+        "X-Amz-Date": amzDate,
+        "Authorization": authorizationHeader,
+        "Host": HOST
+      },
+      body: payloadString
+    });
 
-  function sign(key, msg) {
-    return crypto.createHmac("sha256", key).update(msg).digest();
+    // log detalhado
+    const rawText = await amazonResponse.text();
+    console.log("📌 Resposta bruta da Amazon:", rawText);
+
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch (err) {
+      console.error("❌ Não foi possível parsear JSON:", err);
+      data = null;
+    }
+
+    // garante que items seja sempre array
+    const itemsArray = (data?.ItemsResult?.Items && Array.isArray(data.ItemsResult.Items)) ? data.ItemsResult.Items : [];
+
+    const result = itemsArray.map(item => {
+      const title = item.ItemInfo?.Title?.DisplayValue || "Sem título";
+      const image = item.Images?.Primary?.Large?.URL || "";
+      const offer = item.Offers?.Listings?.[0] || null;
+      const promoPrice = offer?.Price?.Amount || null;
+      const originalPrice = offer?.SavingBasis?.Price?.Amount || promoPrice;
+      const discountPct = (originalPrice && promoPrice) ? Math.round(((originalPrice - promoPrice) / originalPrice) * 100) : 0;
+
+      return {
+        asin: item.ASIN,
+        title,
+        image,
+        original_price: originalPrice,
+        promo_price: promoPrice,
+        discount: discountPct,
+        link: `https://www.amazon.es/dp/${item.ASIN}/?tag=${PARTNER_TAG}`
+      };
+    });
+
+    // envia resultado seguro para front-end
+    res.status(200).json(result);
+
+  } catch (error) {
+    console.error("❌ Erro ao chamar Amazon PA API:", error);
+    res.status(200).json([]); // nunca quebra o front-end
   }
-
-  const kDate = sign(Buffer.from("AWS4" + SECRET_KEY, "utf-8"), dateStamp);
-  const kRegion = sign(kDate, REGION);
-  const kService = sign(kRegion, SERVICE);
-  const kSigning = sign(kService, "aws4_request");
-
-  const signature = crypto.createHmac("sha256", kSigning).update(stringToSign).digest("hex");
-
-  const authorizationHeader =
-    `${algorithm} Credential=${ACCESS_KEY}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}`;
-
-  // ----------- Fetch Amazon ------------
-  const response = await fetch(ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "X-Amz-Date": amzDate,
-      "X-Amz-Target": "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.GetItems",
-      "Authorization": authorizationHeader,
-      "Host": HOST
-    },
-    body: payloadString
-  });
-
-  const data = await response.json();
-
-  if (data.Errors) {
-    console.error("Amazon API Error:", data.Errors);
-    return res.status(500).json({ error: "Amazon API error", details: data.Errors });
-  }
-
-  const items = data.ItemsResult.Items.map(item => {
-    const title = item.ItemInfo.Title.DisplayValue;
-    const image = item.Images.Primary.Large.URL;
-
-    const offer = item.Offers?.Listings?.[0] || null;
-    const promo = offer?.Price?.Amount || null;
-    const original = offer?.SavingBasis?.Price?.Amount || promo;
-
-    const discount =
-      original && promo
-        ? Math.round(((original - promo) / original) * 100)
-        : 0;
-
-    return {
-      asin: item.ASIN,
-      title,
-      image,
-      original_price: original,
-      promo_price: promo,
-      discount,
-      link: `https://www.amazon.es/dp/${item.ASIN}/?tag=${PARTNER_TAG}`
-    };
-  });
-
-  return res.status(200).json(items);
 }

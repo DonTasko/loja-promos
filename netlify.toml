@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"  # ou apenas "" se não tiveres build
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"

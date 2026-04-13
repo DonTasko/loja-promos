@@ -5,7 +5,7 @@ exports.handler = async function(event, context) {
   try {
     // Aqui vais buscar os dados da tua Google Sheets
     // Exemplo com Google Sheets API:
-    const sheetUrl = 'https://script.google.com/macros/s/SEU_ID_DA_SHEET/exec';
+    const sheetUrl = 'https://script.google.com/macros/s/AKfycbzXV2COi6q6327Son0xN9pXKK3vWkmMc0FRp6m25MXzJsBbqg80GAR_qvNhP9pFW9JzWA/exec';
     const response = await axios.get(sheetUrl);
     
     return {

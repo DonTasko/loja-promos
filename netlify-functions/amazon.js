@@ -1,39 +1,25 @@
-const Paapi5 = require('@amzn/paapi5-nodejs-sdk');
-const fetch = require('node-fetch');
-
-const client = new Paapi5.DefaultApi();
+// netlify/functions/amazon.js
+const axios = require('axios');
 
 exports.handler = async function(event, context) {
   try {
-    const request = new Paapi5.GetItemsRequest({
-      PartnerTag: process.env.AMAZON_ASSOC_TAG,
-      PartnerType: 'Associates',
-      Marketplace: 'www.amazon.pt',
-      ItemIds: ["B0GHNL2SRS", "B0CVB937JQ"] // os teus ASINs
-    });
-
-    const response = await client.getItems(request);
-
-    // Mapeamos os produtos para enviar só os dados que o front precisa
-    const items = response.ItemsResult.Items.map(item => ({
-      asin: item.ASIN,
-      title: item.ItemInfo.Title.DisplayValue,
-      image: item.Images.Primary.Large.URL,
-      link: item.DetailPageURL,
-      original_price: item.Offers?.Listings?.[0]?.Price?.Amount || null,
-      promo_price: item.Offers?.Listings?.[0]?.Price?.Amount || null,
-      discount: null
-    }));
-
+    // Aqui vais buscar os dados da tua Google Sheets
+    // Exemplo com Google Sheets API:
+    const sheetUrl = 'https://script.google.com/macros/s/AKfycbzXV2COi6q6327Son0xN9pXKK3vWkmMc0FRp6m25MXzJsBbqg80GAR_qvNhP9pFW9JzWA/exec';
+    const response = await axios.get(sheetUrl);
+    
     return {
       statusCode: 200,
-      body: JSON.stringify(items)
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify(response.data)
     };
   } catch (error) {
-    console.error(error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Erro ao obter produtos' })
+      body: JSON.stringify({ error: 'Erro ao carregar produtos' })
     };
   }
 };

@@ -1,6 +1,6 @@
 [build]
   command = ""
-  functions = "netlify/functions"
+  functions = ".netlify/functions"
   publish = "."
 
 [functions]

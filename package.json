@@ -2,23 +2,8 @@
   "name": "topofertas24",
   "version": "1.0.0",
   "description": "Funções para mostrar produtos Amazon",
-  "main": "index.js",
-  "type": "module",
   "scripts": {
     "start": "netlify dev"
   },
-  "dependencies": {
-    "node-fetch": "^3.3.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DonTasko/loja-promos.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DonTasko/loja-promos/issues"
-  },
-  "homepage": "https://github.com/DonTasko/loja-promos#readme"
+  "dependencies": {}
 }

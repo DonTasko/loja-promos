@@ -1,6 +1,12 @@
 [build]
-  command = "npm run build"  # ou apenas "" se não tiveres build
+  command = ""
   functions = "netlify/functions"
+  publish = "."
 
 [functions]
   node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
